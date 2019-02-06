@@ -7,8 +7,11 @@ Go to folder you want the repository in
 Upload code:
 > git add -A # To upload all files
 
+Commit your changes:
 > git commit -m "Message to describe commit"
 
-> git pull origin master # To check for merge conflict
+To check for merge conflict:
+> git pull origin master 
 
+Resolve conflicts in the code files and push your code:
 > git push origin master
