@@ -2,7 +2,7 @@
 
 Download repository:
 Go to folder you want the repository in
-> git clone "...."
+> git clone "https://github.com/mattaop/heat_flow_optimization-.git"
 
 Upload code:
 > git add -A # To upload all files
