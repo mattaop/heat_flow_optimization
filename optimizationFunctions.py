@@ -15,13 +15,23 @@ def naive_search():
     return T, np.unravel_index(np.argmin(T, axis=None), T.shape), np.min(T)
 
 
-def get_neighbours():
-    
+def get_neighbours(position):
+    grid_length = 4
+    grid_width = 4
+    neighbours = [np.add(position, (1, 0)), np.add(position, (0, 1)), np.subtract(position, (1, 0)), np.subtract(position, (0, 1))]
+    neighbours = np.array([(i, j) for (i, j) in neighbours if i in range(0, grid_length - 1) and j in range(0, grid_width-1)])
+    return neighbours
 
 
 def gradient_descent():
     position = (0, 0)
+    T = np.zeros((4, 4))
     while True:
-        get_neighbours()
+        neighbours = get_neighbours(position)
+        print(tuple(neighbours[0]))
+        for i in range(len(neighbours)):
+            T[tuple(neighbours[i])] = dummy_time(tuple(neighbours[i]))
+        break
 
+gradient_descent()
 print(naive_search())
