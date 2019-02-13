@@ -1,9 +1,9 @@
 # Her skjer det mykje kult
 import numpy as np
-
+np.random.seed(69)
 
 def dummy_time(position):
-    T = np.array([[43, 38, 38, 43], [37, 32, 32, 37], [37, 32, 32, 37], [43, 38, 38, 43]])
+    T = np.array([[43, 38, 38, 43], [37, 32, 32, 37], [2, 200, 0.2, 20], [43, 38, 38, 10]])
     return T[position]
 
 
@@ -19,19 +19,37 @@ def get_neighbours(position):
     grid_length = 4
     grid_width = 4
     neighbours = [np.add(position, (1, 0)), np.add(position, (0, 1)), np.subtract(position, (1, 0)), np.subtract(position, (0, 1))]
-    neighbours = np.array([(i, j) for (i, j) in neighbours if i in range(0, grid_length - 1) and j in range(0, grid_width-1)])
+    neighbours = np.array([(i, j) for (i, j) in neighbours if i in range(0, grid_length) and j in range(0, grid_width)])
     return neighbours
 
+def gradient_descent(iterations):
+    positions = []
+    times = []
+    for iteration in range(iterations):
+        position = (np.random.randint(0,4), np.random.randint(0,4))
+        print('Random position generated to: ', position)
+        T = np.zeros((4, 4))
+        T[position] = dummy_time(position)
+        while True:
+            neighbours = get_neighbours(position)
+            neighbours = map(tuple, neighbours)
+            #print('Neighbours ', neighbours)
+            improvement_found = False
+            best_neighbour = position
+            for neighbour in neighbours:
+                T[neighbour] = dummy_time(neighbour)
+                #print('Neighbour is ', neighbour)
+                #print('Temp of neihgbour is ', T[neighbour])
+                if T[neighbour] < T[best_neighbour]:
+                    improvement_found = True
+                    best_neighbour = neighbour
+            #print ('Time to heat cells: ', T)
+            if not improvement_found:
+                break
+            position = best_neighbour
+        positions.append(position)
+        times.append(T[position])
+    return positions[np.argmin(times)]
 
-def gradient_descent():
-    position = (0, 0)
-    T = np.zeros((4, 4))
-    while True:
-        neighbours = get_neighbours(position)
-        print(tuple(neighbours[0]))
-        for i in range(len(neighbours)):
-            T[tuple(neighbours[i])] = dummy_time(tuple(neighbours[i]))
-        break
-
-gradient_descent()
-print(naive_search())
+print(gradient_descent(10))
+#print('Entire grid: ', naive_search())
