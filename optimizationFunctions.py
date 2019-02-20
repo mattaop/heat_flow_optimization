@@ -2,6 +2,7 @@
 import numpy as np
 np.random.seed(69)
 
+
 def dummy_time(position):
     T = np.array([[43, 38, 38, 43], [37, 32, 32, 37], [2, 200, 0.2, 20], [43, 38, 38, 10]])
     return T[position]
@@ -21,6 +22,7 @@ def get_neighbours(position):
     neighbours = [np.add(position, (1, 0)), np.add(position, (0, 1)), np.subtract(position, (1, 0)), np.subtract(position, (0, 1))]
     neighbours = np.array([(i, j) for (i, j) in neighbours if i in range(0, grid_length) and j in range(0, grid_width)])
     return neighbours
+
 
 def gradient_descent(iterations):
     positions = []
@@ -51,5 +53,5 @@ def gradient_descent(iterations):
         times.append(T[position])
     return positions[np.argmin(times)]
 
-print(gradient_descent(10))
+print(gradient_descent(1))
 #print('Entire grid: ', naive_search())
