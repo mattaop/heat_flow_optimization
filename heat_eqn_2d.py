@@ -2,60 +2,60 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def initialize_grid(x_len, y_len, Nx, Ny, init_temp, heater_temp, heater_placement):
-    dx, dy = x_len/(Nx-1), y_len(Ny-1)
-    u0 = np.ones((Nx, Ny))*init_temp
-    dx2, dy2 = dx * dx, dy * dy
-    dt = min(dx2 * dy2 / (2 * D * (dx2 + dy2)), 10)  # set dt to the minimum of 10 and max_dt to obtain stable solution
-    print("dt = {}".format(dt))
-    u0[heater_placement] = heater_temp
-    u = u0.copy()
-    return u0, u, dx, dy, dt
+class grid_modell_2d:
+    length = 0
+    width = 0
+    Nx = 0
+    Ny = 0
+    dx, dy = 0, 0
+    thermal_diffusivity = 19*10**(-6)
+    initial_temperature = 0
+    temperature_outside = 0
+    heater_temperature = 0
+    heater_placement = 0
+    dt = 0
+    temperature_matrix = []
+    temperature_matrix_previous_time = []
+
+    def __init__(self, x_len, y_len, Nx, Ny, init_temp, heater_temp, outside_temp, heater_placement):
+        self.length = x_len
+        self.width = y_len
+        self.Nx = Nx
+        self.Ny = Ny
+        self.initial_temperature = init_temp
+        self.temperature_outside = outside_temp
+        self.heater_temperature = heater_temp
+        self.heater_placement = heater_placement
+        self.dx, self.dy = x_len/(Nx-1), y_len/(Ny-1)
+        self.dt = min(self.dx**2*self.dy**2/(2*self.thermal_diffusivity*(self.dx**2+self.dy**2)), 10)  # set dt to the minimum of 10 and max_dt to obtain stable solution
+        self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
+        self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
+
+    def temperature_at_new_timestep_cds(self):
+        # Propagate with forward-difference in time, central-difference in space
+        self.temperature_matrix[1:-1, 1:-1] = self.temperature_matrix_previous_time[1:-1, 1:-1] + self.thermal_diffusivity * self.dt * ((self.temperature_matrix_previous_time[2:, 1:-1] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[:-2, 1:-1]) / self.dx ** 2 + (self.temperature_matrix_previous_time[1:-1, 2:] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[1:-1, :-2]) / self.dy ** 2)
+        self.temperature_matrix[self.heater_placement] = self.heater_temperature
+        self.temperature_matrix[0, :] = (9 * self.temperature_matrix_previous_time[1, :] + self.temperature_outside) / 10
+        self.temperature_matrix[-1, :] = (9 * self.temperature_matrix_previous_time[-2, :] + self.temperature_outside) / 10
+        self.temperature_matrix[:, 0] = (9 * self.temperature_matrix_previous_time[:, 1] + self.temperature_outside) / 10
+        self.temperature_matrix[:, -1] = (9 * self.temperature_matrix_previous_time[:, -2] + self.temperature_outside) / 10
+        self.temperature_matrix_previous_time = self.temperature_matrix
+
+    def find_temperature_after_n_timesteps(self, n):
+        for i in range(n):
+            self.temperature_at_new_timestep_cds()
+        Temp = self.temperature_matrix
+        print("avg_temp: ", np.mean(Temp))
+        plt.imshow(self.temperature_matrix, cmap=plt.get_cmap('hot'), vmin=self.initial_temperature, vmax=self.heater_temperature)
+        plt.colorbar()
+        plt.show()
 
 
-def calculate_temperature_at_new_timestep_cds(u0, u, dt, dx, dy, out_temp, heater_placement, heater_temp):
-    # Propagate with forward-difference in time, central-difference in space
-    u[1:-1, 1:-1] = u0[1:-1, 1:-1] + D * dt * ((u0[2:, 1:-1] - 2*u0[1:-1, 1:-1] + u0[:-2, 1:-1])/dx**2 + (u0[1:-1, 2:] - 2*u0[1:-1, 1:-1] + u0[1:-1, :-2])/dy**2)
+temperature_outside = 20+273
+initial_temperature, heater_temperature = 15+273, 30+273
+x_len, y_len, Nx, Ny = 4, 4, 15, 15
+placement = (5, 5)
 
-    u[heater_placement] = heater_temp
-    u[0, :] = (9*u[1, :]+out_temp)/10
-    u[-1, :] = (9*u[-2, :]+out_temp)/10
-    u[:, 0] = (9*u[:, 1]+out_temp)/10
-    u[:, -1] = (9*u[:, -2]+out_temp)/10
-
-    u0 = u.copy()
-
-    return u0, u
-# Thermal diffusivity of air, m2.s-1
-D = 19*10**(-6)
-
-Tcool, Thot, Tout = 15+273, 25+273, 15+273
-
-placement = ((5, 5))
-
-u0, u, dx, dy, dt = initialize_grid(4, 4, 15, 15, Tcool, Thot, placement)
-
-# Number of timesteps
-timeEnd = dt*10001
-nsteps = int(timeEnd/dt)
-# Output 4 figures at these timesteps
-tList = dt*np.array([0, 1000, 5000, 10000])
-#mfig = [0, 10, 50, 10000]
-fignum = 0
-fig = plt.figure()
-for m in range(nsteps):
-    t = dt*m
-    if t in tList:
-        fignum += 1
-        print(t, fignum)
-        ax = fig.add_subplot(220 + fignum)
-        im = ax.imshow(u.copy(), cmap=plt.get_cmap('hot'), vmin=Tcool,vmax=Thot)
-        ax.set_axis_off()
-        #ax.set_title('{:.1f} m'.format(t/60))
-    u0, u = calculate_temperature_at_new_timestep_cds(u0, u, dx, dy, Tout, placement, Thot)
-print(u0)
-fig.subplots_adjust(right=0.85)
-cbar_ax = fig.add_axes([0.9, 0.15, 0.03, 0.7])
-cbar_ax.set_xlabel('$T$ / K', labelpad=20)
-fig.colorbar(im, cax=cbar_ax)
-plt.show()
+square_room = grid_modell_2d(x_len, y_len, Nx, Ny, initial_temperature, heater_temperature, temperature_outside, placement)
+#print(np.shape(square_room.temperature_matrix))
+square_room.find_temperature_after_n_timesteps(100000)
