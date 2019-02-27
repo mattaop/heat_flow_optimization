@@ -1,5 +1,7 @@
 # Her skjer det mykje kult
 import numpy as np
+
+
 np.random.seed(69)
 
 
@@ -53,5 +55,10 @@ def gradient_descent(iterations):
         times.append(T[position])
     return positions[np.argmin(times)]
 
-print(gradient_descent(1))
+
+
+
+
+#print(gradient_descent(1))
 #print('Entire grid: ', naive_search())
+
