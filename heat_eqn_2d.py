@@ -59,4 +59,4 @@ placement = (5, 5)
 
 square_room = grid_modell_2d(x_len, y_len, Nx, Ny, initial_temperature, heater_temperature, temperature_outside, placement)
 #print(np.shape(square_room.temperature_matrix))
-square_room.find_temperature_after_n_timesteps(100000)
+square_room.find_temperature_after_n_timesteps(10000000)
