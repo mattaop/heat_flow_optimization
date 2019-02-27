@@ -16,6 +16,7 @@ class grid_modell_2d:
     dt = 0
     temperature_matrix = []
     temperature_matrix_previous_time = []
+    time = 0
 
     def __init__(self, x_len, y_len, Nx, Ny, init_temp, heater_temp, outside_temp, heater_placement):
         self.length = x_len
@@ -41,6 +42,7 @@ class grid_modell_2d:
         self.temperature_matrix[:, 0] = (9 * self.temperature_matrix_previous_time[:, 1] + self.temperature_outside) / 10
         self.temperature_matrix[:, -1] = (9 * self.temperature_matrix_previous_time[:, -2] + self.temperature_outside) / 10
         self.temperature_matrix_previous_time = self.temperature_matrix
+        self.time += self.dt
 
     def find_temperature_after_n_timesteps(self, n):
         for i in range(n):
