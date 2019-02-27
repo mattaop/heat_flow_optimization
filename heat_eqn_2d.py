@@ -29,6 +29,7 @@ class grid_modell_2d:
         self.dx, self.dy = x_len/(Nx-1), y_len/(Ny-1)
         self.dt = min(self.dx**2*self.dy**2/(2*self.thermal_diffusivity*(self.dx**2+self.dy**2)), 10)  # set dt to the minimum of 10 and max_dt to obtain stable solution
         self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
+        self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
         self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
 
     def temperature_at_new_timestep_cds(self):
