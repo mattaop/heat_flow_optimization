@@ -6,11 +6,11 @@ from sklearn.gaussian_process.kernels import ConstantKernel, Matern
 
 
 class BayesianOptimization:
-    def __init__(self, xy_samples, t_samples, bounds):
+    def __init__(self, xy_samples, t_samples, Nx, Ny):
         self.xy_samples = np.array(xy_samples)
         self.t_samples = np.array(t_samples)
         self.dim = self.xy_samples.shape
-        self.bounds = bounds
+        self.bounds = np.array([[0, Nx-1], [0, Ny-1]])
         self.noise = 10**(-10)
 
         # Setting kernel and Gaussian Process Regression
@@ -21,7 +21,7 @@ class BayesianOptimization:
         self.best_xy = [0, 0]
         self.best_t = np.inf
 
-    def expected_improvement(self, x, xi=0.01):
+    def _expected_improvement(self, x, xi=0.01):
         mu, sigma = self.gpr.predict(x, return_std=True)
         mu_sample = self.gpr.predict(self.xy_samples)
 
@@ -37,11 +37,11 @@ class BayesianOptimization:
             ei[sigma == 0.0] = 0.0
         return ei
 
-    def propose_location(self, n_restarts=25):
+    def _propose_location(self, n_restarts=25):
         # Find the best optimum by starting from n_restart different random points.
-        for x0 in np.random.uniform(self.bounds[:, 0], self.bounds[:, 1], size=(n_restarts, self.dim)): # To avoid local minima
-            res = minimize(self.expected_improvement, x0=x0, bounds=self.bounds, method='L-BFGS-B')
-            if res.fun < self.best_t: # If value of new point is smaller than min_val, update min_val
+        for x0 in np.random.uniform(self.bounds[:, 0], self.bounds[:, 1], size=(n_restarts, self.dim)):  # To avoid local minima
+            res = minimize(self._expected_improvement, x0=x0, bounds=self.bounds, method='L-BFGS-B')
+            if res.fun < self.best_t:  # If value of new point is smaller than min_val, update min_val
                 self.best_t = res.fun[0]
                 self.best_xy = res.x
         return self.best_xy.reshape(-1, 1)
@@ -55,7 +55,7 @@ class BayesianOptimization:
         self.gpr.fit(self.xy_samples, self.t_samples)
 
         # Obtain next sampling point from the acquisition function (expected_improvement)
-        xy_next = self.propose_location()
+        xy_next = self._propose_location()
 
         # Obtain next noisy sample from the objective function
         return xy_next

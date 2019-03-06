@@ -13,7 +13,7 @@ def load_initial_values():
     """
     with open("initial_values\mathias.json", "r") as read_file:
         data = json.load(read_file)
-    print(data)
+    print(data['temperature_outside'])
     return data
 
 
@@ -22,7 +22,7 @@ def start_optimization():
 
     heater_placement = (0, 0)
     square_room = HE.GridModel2D()
-    optimizing_algorithm = BO.BayesianOptimization()
+    optimizing_algorithm = BO.BayesianOptimization(None, None, 10, 10)
     # Run the simulation for two random values to get samples for the optimization algorithm
     for i in range(2):
         time = square_room.simulate()

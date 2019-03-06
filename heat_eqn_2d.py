@@ -36,7 +36,7 @@ class GridModel2D:
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
         self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
 
-    def temperature_at_new_timestep_ftcs(self):
+    def _temperature_at_new_timestep_ftcs(self):
         # Propagate with forward-difference in time, central-difference in space
         self.temperature_matrix[1:-1, 1:-1] = self.temperature_matrix_previous_time[1:-1, 1:-1] + self.thermal_diffusivity * self.dt * ((self.temperature_matrix_previous_time[2:, 1:-1] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[:-2, 1:-1]) / self.dx ** 2 + (self.temperature_matrix_previous_time[1:-1, 2:] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[1:-1, :-2]) / self.dy ** 2)
         self.temperature_matrix[self.heater_placement] = self.heater_temperature
@@ -66,7 +66,7 @@ class GridModel2D:
         self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
         while np.min(self.temperature_matrix) < self.temperature_goal:
-            self.temperature_at_new_timestep_ftcs()
+            self._temperature_at_new_timestep_ftcs()
         return self.time
 
 
