@@ -1,5 +1,6 @@
 import BayesianOptimization as BO
 import heat_eqn_2d as HE
+import numpy as np
 import json
 
 
@@ -21,23 +22,22 @@ def load_initial_values(input_file):
 def start_optimization():
     parameters = load_initial_values("initial_values/mathias.json")
 
-    heater_placement = (0, 0)
+    heater_placement = [0, 0]
     square_room = HE.GridModel2D(parameters)
     optimizing_algorithm = BO.BayesianOptimization(parameters)
 
     # Run the simulation for two random values to get samples for the optimization algorithm
-    for i in range(2):
+    for i in range(3):
         time = square_room.simulate()
+        print(optimizing_algorithm.xy_samples, optimizing_algorithm.t_samples)
         optimizing_algorithm.update_samples(square_room.heater_placement, time)
-    # Run until we get a optimal solution
-    optimizing = True
-    while optimizing:
+
+    # Run until we get convergence
+    while not optimizing_algorithm.convergence():
         heater_placement = optimizing_algorithm.bayesian_optimization()
         time = square_room.simulate(heater_placement)
         optimizing_algorithm.update_samples(square_room.heater_placement, time)
 
-        # For some condition to stop optimizing:
-            # Break
     return heater_placement
 
 

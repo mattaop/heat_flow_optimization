@@ -19,17 +19,17 @@ class GridModel2D:
     temperature_matrix = []
     temperature_matrix_previous_time = []
     time = 0
-    max_time = 1000000
+    max_time = 100000
 
     def __init__(self, parameters):
-        self.length = parameters['x_len']
-        self.width = parameters['y_len']
-        self.Nx = parameters['Nx']
-        self.Ny = parameters['Ny']
-        self.initial_temperature = parameters['init_temp']
-        self.temperature_outside = parameters['outside_temp']
-        self.heater_temperature = parameters['heater_temp']
-        self.temperature_goal = parameters['temperature_goal']
+        self.length = parameters['simulation']['xlen']
+        self.width = parameters['simulation']['ylen']
+        self.Nx = parameters['simulation']['Nx']
+        self.Ny = parameters['simulation']['Ny']
+        self.initial_temperature = parameters['simulation']['initial_temperature']
+        self.temperature_outside = parameters['simulation']['outside_temperature']
+        self.heater_temperature = parameters['simulation']['heater_temperature']
+        self.temperature_goal = parameters['simulation']['temperature_goal']
         self.dx, self.dy = self.length/(self.Nx-1), self.width/(self.Ny-1)
         self.dt = min(self.dx**2*self.dy**2/(2*self.thermal_diffusivity*(self.dx**2+self.dy**2)), 10)  # set dt to the minimum of 10 and max_dt to obtain stable solution
         self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
@@ -58,14 +58,14 @@ class GridModel2D:
 
     def simulate(self, heater_placement='Random'):
         if heater_placement == 'Random':
-            self.heater_placement = (random.randint(0, self.Nx-1), random.randint(0, self.Ny-1))
+            self.heater_placement = [random.randint(0, self.Nx-1), random.randint(0, self.Ny-1)]
         else:
             self.heater_placement = heater_placement
 
         self.time = 0
         self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
-        while np.min(self.temperature_matrix) < self.temperature_goal:
+        while np.min(self.temperature_matrix) < self.temperature_goal and self.time < self.max_time:
             self._temperature_at_new_timestep_ftcs()
         return self.time
 

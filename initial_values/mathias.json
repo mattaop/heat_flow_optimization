@@ -2,8 +2,8 @@
   {
     "xlen": 5,
     "ylen": 5,
-    "Nx": 5,
-    "Ny": 5,
+    "Nx": 10,
+    "Ny": 10,
     "initial_temperature": 293,
     "heater_temperature": 293,
     "outside_temperature": 303,
@@ -11,7 +11,7 @@
   },
   "optimization":
   {
-    "xy_samples": [[]],
-    "t_samples": []
+    "xy_samples": null,
+    "t_samples": null
   }
 }
