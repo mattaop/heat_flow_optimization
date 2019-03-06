@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29d2afa4-162b-4eba-b4bc-abc405531ed8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/finite_difference.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/optimizationFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/optimizationFunctions.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,32 +43,37 @@
     <session id="-420033043">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.12" value="1" />
+          <entry key="project.closed" value="8" />
+          <entry key="project.open.time.0" value="2" />
+          <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.9" value="2" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1229" />
+          <entry key="py" value="3038" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="1229" />
+          <entry key="Python" value="3038" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="3" />
+          <entry key="java" value="1" />
+          <entry key="jpg" value="13" />
+          <entry key="py" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="3" />
+          <entry key="Image" value="13" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Python" value="9" />
         </counts>
       </usages-collector>
     </session>
@@ -78,10 +81,13 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
+        <entry file="file://$PROJECT_DIR$/finite_difference.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" selection-start-line="3" selection-end-line="10" />
+            <state relative-caret-position="748">
+              <caret line="45" selection-start-line="45" selection-end-line="45" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -89,19 +95,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/optimizationFunctions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+            <state relative-caret-position="986">
+              <caret line="58" selection-start-line="58" selection-end-line="58" />
+              <folding>
+                <marker date="1551272083840" expanded="true" signature="1927:1928" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/finite_difference.py">
+        <entry file="file://$PROJECT_DIR$/BayesianOptimization.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="34" column="7" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
+            <state relative-caret-position="119">
+              <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <marker date="1551278612923" expanded="true" signature="243:734" ph="..." />
+                <marker date="1551278612923" expanded="true" signature="1843:2285" ph="..." />
               </folding>
             </state>
           </provider>
@@ -112,9 +123,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="yet_unknown" />
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>bounds</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -124,8 +141,12 @@
       <list>
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$USER_HOME$/Downloads/main (2).py" />
-        <option value="$PROJECT_DIR$/optimizationFunctions.py" />
+        <option value="$PROJECT_DIR$/crank_nicolson.java" />
+        <option value="$PROJECT_DIR$/crank_nicolson.py" />
         <option value="$PROJECT_DIR$/finite_difference.py" />
+        <option value="$PROJECT_DIR$/optimizationFunctions.py" />
+        <option value="$PROJECT_DIR$/bayesian_optimization_util.py" />
+        <option value="$PROJECT_DIR$/BayesianOptimization.py" />
       </list>
     </option>
   </component>
@@ -139,6 +160,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -150,7 +172,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -174,7 +195,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.finite_difference">
+  <component name="RunManager" selected="Python.optimizationFunctions">
+    <configuration name="crank_nicolson" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="heat_flow_optimization-" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/crank_nicolson.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="finite_difference" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="heat_flow_optimization-" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -264,11 +306,13 @@
       <item itemvalue="Python.main (2)" />
       <item itemvalue="Python.optimizationFunctions" />
       <item itemvalue="Python.finite_difference" />
+      <item itemvalue="Python.crank_nicolson" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.finite_difference" />
         <item itemvalue="Python.optimizationFunctions" />
+        <item itemvalue="Python.finite_difference" />
+        <item itemvalue="Python.crank_nicolson" />
         <item itemvalue="Python.main (2)" />
         <item itemvalue="Python.main" />
       </list>
@@ -291,7 +335,7 @@
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12877584" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12877584" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -305,7 +349,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info active="true" anchor="bottom" id="Run Dashboard" order="11" visible="true" weight="0.32740214" />
+      <window_info anchor="bottom" id="Run Dashboard" order="11" visible="true" weight="0.32740214" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -349,19 +393,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/optimizationFunctions.py">
+    <entry file="file://$PROJECT_DIR$/crank_nicolson.java" />
+    <entry file="file://$PROJECT_DIR$/foo030.jpg" />
+    <entry file="file://$PROJECT_DIR$/foo028.jpg" />
+    <entry file="file://$PROJECT_DIR$/foo029.jpg" />
+    <entry file="file://$PROJECT_DIR$/foo031.jpg" />
+    <entry file="file://$PROJECT_DIR$/foo027.jpg" />
+    <entry file="file://$PROJECT_DIR$/foo025.jpg" />
+    <entry file="file://$PROJECT_DIR$/foo022.jpg" />
+    <entry file="file://$PROJECT_DIR$/foo015.jpg" />
+    <entry file="file://$PROJECT_DIR$/foo000.jpg" />
+    <entry file="file://$PROJECT_DIR$/foo008.jpg" />
+    <entry file="file://$PROJECT_DIR$/foo011.jpg" />
+    <entry file="file://$PROJECT_DIR$/foo021.jpg" />
+    <entry file="file://$PROJECT_DIR$/crank_nicolson.py" />
+    <entry file="file://$PROJECT_DIR$/bayesian_optimization_util.py" />
+    <entry file="file://$PROJECT_DIR$/finite_difference.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+        <state relative-caret-position="748">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/finite_difference.py">
+    <entry file="file://$PROJECT_DIR$/optimizationFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="34" column="7" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
+        <state relative-caret-position="986">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+          <folding>
+            <marker date="1551272083840" expanded="true" signature="1927:1928" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BayesianOptimization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <marker date="1551278612923" expanded="true" signature="243:734" ph="..." />
+            <marker date="1551278612923" expanded="true" signature="1843:2285" ph="..." />
           </folding>
         </state>
       </provider>
