@@ -48,7 +48,7 @@ class grid_modell_2d:
         for i in range(n):
             self.temperature_at_new_timestep_ftcs()
         Temp = self.temperature_matrix
-        print("avg_temp: ", np.mean(Temp))
+        print("avg_temp in room: ", np.mean(Temp))
         plt.imshow(self.temperature_matrix, cmap=plt.get_cmap('hot'), vmin=self.initial_temperature, vmax=self.heater_temperature)
         plt.colorbar()
         plt.show()
