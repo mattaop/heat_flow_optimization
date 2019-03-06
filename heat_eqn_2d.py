@@ -21,16 +21,16 @@ class GridModel2D:
     time = 0
     max_time = 1000000
 
-    def __init__(self, x_len, y_len, Nx, Ny, init_temp, heater_temp, outside_temp, temperature_goal):
-        self.length = x_len
-        self.width = y_len
-        self.Nx = Nx
-        self.Ny = Ny
-        self.initial_temperature = init_temp
-        self.temperature_outside = outside_temp
-        self.heater_temperature = heater_temp
-        self.temperature_goal = temperature_goal
-        self.dx, self.dy = x_len/(Nx-1), y_len/(Ny-1)
+    def __init__(self, parameters):
+        self.length = parameters['x_len']
+        self.width = parameters['y_len']
+        self.Nx = parameters['Nx']
+        self.Ny = parameters['Ny']
+        self.initial_temperature = parameters['init_temp']
+        self.temperature_outside = parameters['outside_temp']
+        self.heater_temperature = parameters['heater_temp']
+        self.temperature_goal = parameters['temperature_goal']
+        self.dx, self.dy = self.length/(self.Nx-1), self.width/(self.Ny-1)
         self.dt = min(self.dx**2*self.dy**2/(2*self.thermal_diffusivity*(self.dx**2+self.dy**2)), 10)  # set dt to the minimum of 10 and max_dt to obtain stable solution
         self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
@@ -49,7 +49,7 @@ class GridModel2D:
 
     def find_temperature_after_n_timesteps(self, n):
         for i in range(n):
-            self.temperature_at_new_timestep_ftcs()
+            self._temperature_at_new_timestep_ftcs()
         print("avg_temp in room: ", np.mean(self.temperature_matrix))
         print("Time: ", self.time)
         plt.imshow(self.temperature_matrix, cmap=plt.get_cmap('hot'), vmin=self.initial_temperature, vmax=self.heater_temperature)

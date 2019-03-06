@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29d2afa4-162b-4eba-b4bc-abc405531ed8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BayesianOptimization.py" beforeDir="false" afterPath="$PROJECT_DIR$/BayesianOptimization.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/heat_eqn_2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/heat_eqn_2d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial_values/mathias.json" beforeDir="false" afterPath="$PROJECT_DIR$/initial_values/mathias.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,14 +57,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="json" value="70" />
-          <entry key="py" value="4758" />
+          <entry key="json" value="83" />
+          <entry key="py" value="4896" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JSON" value="70" />
-          <entry key="Python" value="4758" />
+          <entry key="JSON" value="83" />
+          <entry key="Python" value="4896" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -87,11 +87,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/heat_eqn_2d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="24" column="27" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="27" />
+            <state relative-caret-position="-366">
+              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -102,26 +102,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BayesianOptimization.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="15" column="56" lean-forward="true" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
+            <state relative-caret-position="170">
+              <caret line="10" column="58" lean-forward="true" selection-start-line="10" selection-start-column="58" selection-end-line="10" selection-end-column="58" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <marker date="1551874154217" expanded="true" signature="243:805" ph="..." />
-                <marker date="1551874154217" expanded="true" signature="1987:2430" ph="..." />
+                <marker date="1551875160090" expanded="true" signature="243:842" ph="..." />
+                <marker date="1551875160090" expanded="true" signature="2024:2467" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="16" column="15" lean-forward="true" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
+            <state relative-caret-position="-60">
+              <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
-                <marker date="1551874562236" expanded="true" signature="238:396" ph="..." />
-                <marker date="1551874562236" expanded="true" signature="421:1228" ph="..." />
+                <marker date="1551875160076" expanded="true" signature="616:1243" ph="..." />
               </folding>
             </state>
           </provider>
@@ -130,8 +129,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/initial_values/mathias.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="28" lean-forward="true" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+            <state relative-caret-position="34">
+              <caret line="2" column="9" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -164,10 +163,10 @@
         <option value="$PROJECT_DIR$/finite_difference.py" />
         <option value="$PROJECT_DIR$/optimizationFunctions.py" />
         <option value="$PROJECT_DIR$/bayesian_optimization_util.py" />
-        <option value="$PROJECT_DIR$/initial_values/mathias.json" />
-        <option value="$PROJECT_DIR$/heat_eqn_2d.py" />
-        <option value="$PROJECT_DIR$/BayesianOptimization.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/initial_values/mathias.json" />
+        <option value="$PROJECT_DIR$/BayesianOptimization.py" />
+        <option value="$PROJECT_DIR$/heat_eqn_2d.py" />
       </list>
     </option>
   </component>
@@ -448,43 +447,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/initial_values/mathias.json">
+    <entry file="file://$PROJECT_DIR$/BayesianOptimization.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="28" lean-forward="true" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+        <state relative-caret-position="170">
+          <caret line="10" column="58" lean-forward="true" selection-start-line="10" selection-start-column="58" selection-end-line="10" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <marker date="1551875160090" expanded="true" signature="243:842" ph="..." />
+            <marker date="1551875160090" expanded="true" signature="2024:2467" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BayesianOptimization.py">
+    <entry file="file://$PROJECT_DIR$/initial_values/mathias.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="15" column="56" lean-forward="true" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
+        <state relative-caret-position="34">
+          <caret line="2" column="9" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/heat_eqn_2d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-366">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <marker date="1551874154217" expanded="true" signature="243:805" ph="..." />
-            <marker date="1551874154217" expanded="true" signature="1987:2430" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="16" column="15" lean-forward="true" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
+        <state relative-caret-position="-60">
+          <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
-            <marker date="1551874562236" expanded="true" signature="238:396" ph="..." />
-            <marker date="1551874562236" expanded="true" signature="421:1228" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/heat_eqn_2d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="24" column="27" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <marker date="1551875160076" expanded="true" signature="616:1243" ph="..." />
           </folding>
         </state>
       </provider>

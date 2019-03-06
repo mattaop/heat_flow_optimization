@@ -11,8 +11,7 @@
   },
   "optimization":
   {
-    "xy_samples": 3,
-    "t_samples": 3,
-    "bounds": 10
+    "xy_samples": [[]],
+    "t_samples": []
   }
 }

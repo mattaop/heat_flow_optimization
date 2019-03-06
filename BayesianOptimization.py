@@ -6,11 +6,11 @@ from sklearn.gaussian_process.kernels import ConstantKernel, Matern
 
 
 class BayesianOptimization:
-    def __init__(self, xy_samples, t_samples, Nx, Ny):
-        self.xy_samples = np.array(xy_samples)
-        self.t_samples = np.array(t_samples)
+    def __init__(self, parameters):
+        self.xy_samples = np.array(parameters['xy_samples'])
+        self.t_samples = np.array(parameters['t_samples'])
         self.dim = self.xy_samples.shape
-        self.bounds = np.array([[0, Nx-1], [0, Ny-1]])
+        self.bounds = np.array([[0, parameters['Nx']-1], [0, parameters['Ny']-1]])
         self.noise = 10**(-10)
 
         # Setting kernel and Gaussian Process Regression
