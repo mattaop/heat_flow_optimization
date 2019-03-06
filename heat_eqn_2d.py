@@ -47,8 +47,8 @@ class grid_modell_2d:
     def find_temperature_after_n_timesteps(self, n):
         for i in range(n):
             self.temperature_at_new_timestep_ftcs()
-        Temp = self.temperature_matrix
-        print("avg_temp in room: ", np.mean(Temp))
+        print("avg_temp in room: ", np.mean(self.temperature_matrix))
+        print("Time: ", self.time)
         plt.imshow(self.temperature_matrix, cmap=plt.get_cmap('hot'), vmin=self.initial_temperature, vmax=self.heater_temperature)
         plt.colorbar()
         plt.show()
@@ -60,5 +60,14 @@ class grid_modell_2d:
 # x_len, y_len, Nx, Ny = 5, 5, 10, 10
 # placement = (5, 5)
 #
+# number_timesteps = 1000
+#
 # square_room = grid_modell_2d(x_len, y_len, Nx, Ny, initial_temperature, heater_temperature, temperature_outside, placement)
-# square_room.find_temperature_after_n_timesteps(100000)
+# square_room.find_temperature_after_n_timesteps(number_timesteps)
+#
+# square_room.heater_placement = (1, 1)
+# square_room.time = 0
+# square_room.temperature_matrix_previous_time = np.ones((square_room.Nx, square_room.Ny))*square_room.initial_temperature
+# square_room.temperature_matrix_previous_time[square_room.heater_placement] = square_room.heater_temperature
+# square_room.find_temperature_after_n_timesteps(number_timesteps-10)
+
