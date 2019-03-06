@@ -13,11 +13,11 @@ class BayesianOptimization:
         self.bounds = np.array([[0, parameters['simulation']['Nx']-1], [0, parameters['simulation']['Ny']-1]])
         self.noise = 10**(-10)
         self.threshold = np.maximum(parameters['simulation']["xlen"]/parameters['simulation']['Nx'],
-                                parameters['simulation']["ylen"]/parameters['simulation']['Ny'])
+                                    parameters['simulation']["ylen"]/parameters['simulation']['Ny'])
 
         # Setting kernel and Gaussian Process Regression
         self.m52 = ConstantKernel(1.0) * Matern(length_scale=1.0, nu=2.5)
-        self.gpr = GaussianProcessRegressor(kernel=self.m52, alpha=self.noise ** 2)
+        self.gpr = GaussianProcessRegressor(kernel=self.m52, normalize_y=True, alpha=self.noise ** 2)
 
         # Save best values
         self.best_xy = [0, 0]
@@ -42,7 +42,7 @@ class BayesianOptimization:
     def _propose_location(self, n_restarts=25):
         # Find the best optimum by starting from n_restart different random points.
         print(self.bounds[0, :], self.bounds[1, :])
-        for x0 in np.random.uniform(self.bounds[0, :], self.bounds[1, :], size=(n_restarts, self.dim[0], self.dim[1])):  # To avoid local minima
+        for x0 in np.random.uniform(self.bounds[:, 0, :], self.bounds[:, 1, :], size=(n_restarts, self.dim[0], self.dim[1])):  # To avoid local minima
             res = minimize(self._expected_improvement, x0=x0, bounds=self.bounds, method='L-BFGS-B')
             if res.fun < self.best_t:  # If value of new point is smaller than min_val, update min_val
                 self.best_t = res.fun[0]
