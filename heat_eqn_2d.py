@@ -16,6 +16,7 @@ class GridModel2D:
     dt = 0
     temperature_matrix = []
     temperature_matrix_previous_time = []
+    time = 0
 
     def __init__(self, x_len, y_len, Nx, Ny, init_temp, heater_temp, outside_temp, heater_placement):
         self.length = x_len
@@ -32,7 +33,7 @@ class GridModel2D:
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
         self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
 
-    def temperature_at_new_timestep_cds(self):
+    def temperature_at_new_timestep_ftcs(self):
         # Propagate with forward-difference in time, central-difference in space
         self.temperature_matrix[1:-1, 1:-1] = self.temperature_matrix_previous_time[1:-1, 1:-1] + self.thermal_diffusivity * self.dt * ((self.temperature_matrix_previous_time[2:, 1:-1] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[:-2, 1:-1]) / self.dx ** 2 + (self.temperature_matrix_previous_time[1:-1, 2:] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[1:-1, :-2]) / self.dy ** 2)
         self.temperature_matrix[self.heater_placement] = self.heater_temperature
@@ -41,22 +42,32 @@ class GridModel2D:
         self.temperature_matrix[:, 0] = (9 * self.temperature_matrix_previous_time[:, 1] + self.temperature_outside) / 10
         self.temperature_matrix[:, -1] = (9 * self.temperature_matrix_previous_time[:, -2] + self.temperature_outside) / 10
         self.temperature_matrix_previous_time = self.temperature_matrix
+        self.time += self.dt
 
     def find_temperature_after_n_timesteps(self, n):
         for i in range(n):
-            self.temperature_at_new_timestep_cds()
-        Temp = self.temperature_matrix
-        print("avg_temp: ", np.mean(Temp))
+            self.temperature_at_new_timestep_ftcs()
+        print("avg_temp in room: ", np.mean(self.temperature_matrix))
+        print("Time: ", self.time)
         plt.imshow(self.temperature_matrix, cmap=plt.get_cmap('hot'), vmin=self.initial_temperature, vmax=self.heater_temperature)
         plt.colorbar()
         plt.show()
 
 
-temperature_outside = 20+273
-initial_temperature, heater_temperature = 15+273, 30+273
-x_len, y_len, Nx, Ny = 4, 4, 15, 15
-placement = (5, 5)
+# Eksempel på bruk av kode
+# temperature_outside = 20+273
+# initial_temperature, heater_temperature = 15+273, 30+273
+# x_len, y_len, Nx, Ny = 5, 5, 10, 10
+# placement = (5, 5)
+#
+# number_timesteps = 1000
+#
+# square_room = GridModel2D(x_len, y_len, Nx, Ny, initial_temperature, heater_temperature, temperature_outside, placement)
+# square_room.find_temperature_after_n_timesteps(number_timesteps)
+#
+# square_room.heater_placement = (1, 1)
+# square_room.time = 0
+# square_room.temperature_matrix_previous_time = np.ones((square_room.Nx, square_room.Ny))*square_room.initial_temperature
+# square_room.temperature_matrix_previous_time[square_room.heater_placement] = square_room.heater_temperature
+# square_room.find_temperature_after_n_timesteps(number_timesteps-10)
 
-square_room = GridModel2D(x_len, y_len, Nx, Ny, initial_temperature, heater_temperature, temperature_outside, placement)
-#print(np.shape(square_room.temperature_matrix))
-square_room.find_temperature_after_n_timesteps(10000000)

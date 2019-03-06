@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29d2afa4-162b-4eba-b4bc-abc405531ed8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heat_eqn_2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/heat_eqn_2d.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,12 +54,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="3375" />
+          <entry key="py" value="3427" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="3375" />
+          <entry key="Python" value="3427" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -81,11 +80,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/heat_eqn_2d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="57" column="9" selection-start-line="57" selection-end-line="57" selection-end-column="9" />
+            <state relative-caret-position="1241">
+              <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -119,14 +118,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
+            <state relative-caret-position="340">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
               <folding>
-                <marker date="1551862713876" expanded="true" signature="179:416" ph="..." />
-                <marker date="1551862713876" expanded="true" signature="441:603" ph="..." />
+                <element signature="e#0#33#0" expanded="true" />
+                <marker date="1551862868887" expanded="true" signature="238:475" ph="..." />
+                <marker date="1551862868887" expanded="true" signature="500:655" ph="..." />
               </folding>
             </state>
           </provider>
@@ -160,8 +160,8 @@
         <option value="$PROJECT_DIR$/optimizationFunctions.py" />
         <option value="$PROJECT_DIR$/bayesian_optimization_util.py" />
         <option value="$PROJECT_DIR$/BayesianOptimization.py" />
-        <option value="$PROJECT_DIR$/heat_eqn_2d.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/heat_eqn_2d.py" />
       </list>
     </option>
   </component>
@@ -448,23 +448,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/heat_eqn_2d.py">
+    <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="57" column="9" selection-start-line="57" selection-end-line="57" selection-end-column="9" />
+        <state relative-caret-position="340">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#33#0" expanded="true" />
+            <marker date="1551862868887" expanded="true" signature="238:475" ph="..." />
+            <marker date="1551862868887" expanded="true" signature="500:655" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/heat_eqn_2d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
+        <state relative-caret-position="1241">
+          <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
           <folding>
-            <marker date="1551862713876" expanded="true" signature="179:416" ph="..." />
-            <marker date="1551862713876" expanded="true" signature="441:603" ph="..." />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
