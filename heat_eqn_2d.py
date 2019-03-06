@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-class grid_modell_2d:
+class GridModel2D:
     length = 0
     width = 0
     Nx = 0
@@ -57,6 +57,6 @@ initial_temperature, heater_temperature = 15+273, 30+273
 x_len, y_len, Nx, Ny = 4, 4, 15, 15
 placement = (5, 5)
 
-square_room = grid_modell_2d(x_len, y_len, Nx, Ny, initial_temperature, heater_temperature, temperature_outside, placement)
+square_room = GridModel2D(x_len, y_len, Nx, Ny, initial_temperature, heater_temperature, temperature_outside, placement)
 #print(np.shape(square_room.temperature_matrix))
 square_room.find_temperature_after_n_timesteps(10000000)
