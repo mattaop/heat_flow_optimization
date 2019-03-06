@@ -33,7 +33,7 @@ class grid_modell_2d:
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
         self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
 
-    def temperature_at_new_timestep_cds(self):
+    def temperature_at_new_timestep_ftcs(self):
         # Propagate with forward-difference in time, central-difference in space
         self.temperature_matrix[1:-1, 1:-1] = self.temperature_matrix_previous_time[1:-1, 1:-1] + self.thermal_diffusivity * self.dt * ((self.temperature_matrix_previous_time[2:, 1:-1] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[:-2, 1:-1]) / self.dx ** 2 + (self.temperature_matrix_previous_time[1:-1, 2:] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[1:-1, :-2]) / self.dy ** 2)
         self.temperature_matrix[self.heater_placement] = self.heater_temperature
@@ -46,7 +46,7 @@ class grid_modell_2d:
 
     def find_temperature_after_n_timesteps(self, n):
         for i in range(n):
-            self.temperature_at_new_timestep_cds()
+            self.temperature_at_new_timestep_ftcs()
         Temp = self.temperature_matrix
         print("avg_temp: ", np.mean(Temp))
         plt.imshow(self.temperature_matrix, cmap=plt.get_cmap('hot'), vmin=self.initial_temperature, vmax=self.heater_temperature)
