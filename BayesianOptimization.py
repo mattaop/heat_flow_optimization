@@ -12,7 +12,6 @@ class BayesianOptimization:
         self.dim = self.xy_samples.shape
         self.bounds = bounds
         self.noise = 10**(-10)
-        self.n_iter = 10
 
         # Setting kernel and Gaussian Process Regression
         self.m52 = ConstantKernel(1.0) * Matern(length_scale=1.0, nu=2.5)

@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29d2afa4-162b-4eba-b4bc-abc405531ed8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/initial_values/mathias.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BayesianOptimization.py" beforeDir="false" afterPath="$PROJECT_DIR$/BayesianOptimization.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/heat_eqn_2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/heat_eqn_2d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,24 +58,28 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="3427" />
+          <entry key="json" value="70" />
+          <entry key="py" value="4283" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="3427" />
+          <entry key="JSON" value="70" />
+          <entry key="Python" value="4283" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="java" value="1" />
           <entry key="jpg" value="13" />
+          <entry key="json" value="1" />
           <entry key="py" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="13" />
+          <entry key="JSON" value="1" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="Python" value="11" />
         </counts>
@@ -80,11 +88,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/heat_eqn_2d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1241">
-              <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
+            <state relative-caret-position="212">
+              <caret line="23" column="99" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="99" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -92,27 +100,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/optimizationFunctions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="986">
-              <caret line="58" selection-start-line="58" selection-end-line="58" />
-              <folding>
-                <marker date="1551272083840" expanded="true" signature="1927:1928" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BayesianOptimization.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="48" column="36" lean-forward="true" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
+            <state relative-caret-position="365">
+              <caret line="40" column="47" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="47" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <marker date="1551858436410" expanded="true" signature="243:734" ph="..." />
-                <marker date="1551858436410" expanded="true" signature="1843:2285" ph="..." />
+                <marker date="1551867368894" expanded="true" signature="243:709" ph="..." />
+                <marker date="1551867368894" expanded="true" signature="1818:2260" ph="..." />
               </folding>
             </state>
           </provider>
@@ -121,13 +117,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="8">
+              <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
-                <marker date="1551862868887" expanded="true" signature="238:475" ph="..." />
-                <marker date="1551862868887" expanded="true" signature="500:655" ph="..." />
+                <marker date="1551867368878" expanded="true" signature="257:392" ph="..." />
+                <marker date="1551867368878" expanded="true" signature="417:1129" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/initial_values/mathias.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="28" lean-forward="true" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -145,6 +150,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>bounds</find>
+      <find>n_iter</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -159,9 +165,10 @@
         <option value="$PROJECT_DIR$/finite_difference.py" />
         <option value="$PROJECT_DIR$/optimizationFunctions.py" />
         <option value="$PROJECT_DIR$/bayesian_optimization_util.py" />
-        <option value="$PROJECT_DIR$/BayesianOptimization.py" />
-        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/initial_values/mathias.json" />
         <option value="$PROJECT_DIR$/heat_eqn_2d.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/BayesianOptimization.py" />
       </list>
     </option>
   </component>
@@ -182,6 +189,11 @@
             <path>
               <item name="heat_flow_optimization" type="b2602c69:ProjectViewProjectNode" />
               <item name="heat_flow_optimization" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="heat_flow_optimization" type="b2602c69:ProjectViewProjectNode" />
+              <item name="heat_flow_optimization" type="462c0819:PsiDirectoryNode" />
+              <item name="initial_values" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -209,8 +221,9 @@
         </RuleState>
       </list>
     </option>
+    <option name="contentProportion" value="0.1097561" />
   </component>
-  <component name="RunManager" selected="Python.optimizationFunctions">
+  <component name="RunManager" selected="Python.main">
     <configuration name="crank_nicolson" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="heat_flow_optimization-" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -325,11 +338,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.optimizationFunctions" />
         <item itemvalue="Python.finite_difference" />
         <item itemvalue="Python.crank_nicolson" />
         <item itemvalue="Python.main (2)" />
-        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -350,7 +363,7 @@
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12877584" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12877584" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -364,7 +377,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="bottom" id="Run Dashboard" order="11" visible="true" weight="0.14768684" />
+      <window_info active="true" anchor="bottom" id="Run Dashboard" order="11" visible="true" weight="0.32562277" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -428,7 +441,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/optimizationFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
+        <state relative-caret-position="680">
           <caret line="58" selection-start-line="58" selection-end-line="58" />
           <folding>
             <marker date="1551272083840" expanded="true" signature="1927:1928" ph="..." />
@@ -436,36 +449,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BayesianOptimization.py">
+    <entry file="file://$PROJECT_DIR$/initial_values/mathias.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="48" column="36" lean-forward="true" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <marker date="1551858436410" expanded="true" signature="243:734" ph="..." />
-            <marker date="1551858436410" expanded="true" signature="1843:2285" ph="..." />
-          </folding>
+        <state relative-caret-position="17">
+          <caret line="1" column="28" lean-forward="true" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="8">
+          <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
-            <marker date="1551862868887" expanded="true" signature="238:475" ph="..." />
-            <marker date="1551862868887" expanded="true" signature="500:655" ph="..." />
+            <marker date="1551867368878" expanded="true" signature="257:392" ph="..." />
+            <marker date="1551867368878" expanded="true" signature="417:1129" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/heat_eqn_2d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
+        <state relative-caret-position="212">
+          <caret line="23" column="99" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="99" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BayesianOptimization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="40" column="47" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <marker date="1551867368894" expanded="true" signature="243:709" ph="..." />
+            <marker date="1551867368894" expanded="true" signature="1818:2260" ph="..." />
           </folding>
         </state>
       </provider>
