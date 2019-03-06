@@ -17,6 +17,10 @@ class BayesianOptimization:
         self.m52 = ConstantKernel(1.0) * Matern(length_scale=1.0, nu=2.5)
         self.gpr = GaussianProcessRegressor(kernel=self.m52, alpha=self.noise ** 2)
 
+        #
+        self.best_xy = [0, 0]
+        self.best_t = np.inf
+
     def expected_improvement(self, x, xi=0.01):
         mu, sigma = self.gpr.predict(x, return_std=True)
         mu_sample = self.gpr.predict(self.xy_samples)
@@ -34,16 +38,13 @@ class BayesianOptimization:
         return ei
 
     def propose_location(self, n_restarts=25):
-        min_val = 1
-        min_x = None
-
         # Find the best optimum by starting from n_restart different random points.
-        for x0 in np.random.uniform(self.bounds[:, 0], self.bounds[:, 1], size=(n_restarts, self.dim)):
+        for x0 in np.random.uniform(self.bounds[:, 0], self.bounds[:, 1], size=(n_restarts, self.dim)): # To avoid local minima
             res = minimize(self.expected_improvement, x0=x0, bounds=self.bounds, method='L-BFGS-B')
-            if res.fun < min_val:
-                min_val = res.fun[0]
-                min_x = res.x
-        return min_x.reshape(-1, 1)
+            if res.fun < self.best_t: # If value of new point is smaller than min_val, update min_val
+                self.best_t = res.fun[0]
+                self.best_xy = res.x
+        return self.best_xy.reshape(-1, 1)
 
     def bayesian_optimization(self):
         """

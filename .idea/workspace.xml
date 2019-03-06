@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29d2afa4-162b-4eba-b4bc-abc405531ed8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/initial_values/mathias.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BayesianOptimization.py" beforeDir="false" afterPath="$PROJECT_DIR$/BayesianOptimization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heat_eqn_2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/heat_eqn_2d.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,13 +56,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="json" value="70" />
-          <entry key="py" value="4283" />
+          <entry key="py" value="4656" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="70" />
-          <entry key="Python" value="4283" />
+          <entry key="Python" value="4656" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -91,38 +88,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/heat_eqn_2d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="23" column="99" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="99" />
+            <state relative-caret-position="264">
+              <caret line="60" column="51" selection-start-line="60" selection-start-column="44" selection-end-line="60" selection-end-column="51" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/BayesianOptimization.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="40" column="47" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="47" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-                <marker date="1551867368894" expanded="true" signature="243:709" ph="..." />
-                <marker date="1551867368894" expanded="true" signature="1818:2260" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BayesianOptimization.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="63" selection-start-line="63" selection-end-line="63" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+                <marker date="1551868835745" expanded="true" signature="243:779" ph="..." />
+                <marker date="1551868835745" expanded="true" signature="1956:2398" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8">
-              <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
+            <state relative-caret-position="272">
+              <caret line="39" column="19" selection-start-line="39" selection-start-column="14" selection-end-line="39" selection-end-column="19" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
-                <marker date="1551867368878" expanded="true" signature="257:392" ph="..." />
-                <marker date="1551867368878" expanded="true" signature="417:1129" ph="..." />
+                <marker date="1551867534075" expanded="true" signature="238:373" ph="..." />
+                <marker date="1551867534075" expanded="true" signature="398:1208" ph="..." />
               </folding>
             </state>
           </provider>
@@ -376,8 +373,8 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info active="true" anchor="bottom" id="Run Dashboard" order="11" visible="true" weight="0.32562277" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="10" visible="true" weight="0.3291815" />
+      <window_info anchor="bottom" id="Run Dashboard" order="11" weight="0.32562277" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -456,22 +453,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8">
-          <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
-            <marker date="1551867368878" expanded="true" signature="257:392" ph="..." />
-            <marker date="1551867368878" expanded="true" signature="417:1129" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/heat_eqn_2d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="23" column="99" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="99" />
+        <state relative-caret-position="264">
+          <caret line="60" column="51" selection-start-line="60" selection-start-column="44" selection-end-line="60" selection-end-column="51" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -480,12 +465,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BayesianOptimization.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="40" column="47" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="47" />
+        <state relative-caret-position="142">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <marker date="1551867368894" expanded="true" signature="243:709" ph="..." />
-            <marker date="1551867368894" expanded="true" signature="1818:2260" ph="..." />
+            <marker date="1551868835745" expanded="true" signature="243:779" ph="..." />
+            <marker date="1551868835745" expanded="true" signature="1956:2398" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="39" column="19" selection-start-line="39" selection-start-column="14" selection-end-line="39" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+            <marker date="1551867534075" expanded="true" signature="238:373" ph="..." />
+            <marker date="1551867534075" expanded="true" signature="398:1208" ph="..." />
           </folding>
         </state>
       </provider>
