@@ -69,18 +69,6 @@ class GridModel2D:
             self._temperature_at_new_timestep_ftcs()
         return self.time
 
-    def create_velocity_field(self):
-        v_x = np.zeros((self.Nx, self.Ny))
-        v_y = np.zeros_like(v_x)
-        x_H, y_H = self.heater_placement[1], self.heater_placement[0]
-        print(x_H, y_H)
-        for i in range(self.Ny):
-            for j in range(self.Nx):
-                if (j, i) != (x_H, y_H):
-                    v_x[i, j], v_y[i, j] = (j - x_H) / ((j - x_H) ** 2 + (i - y_H) ** 2), (i - y_H) / ((j - x_H) ** 2 + (i - y_H) ** 2)
-        print(v_x)
-        print(v_y)
-        return v_x, v_y
 
 # Eksempel på bruk av kode
 # temperature_outside = 20+273
