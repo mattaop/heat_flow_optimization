@@ -2,12 +2,12 @@
   {
     "xlen": 5,
     "ylen": 5,
-    "Nx": 10,
-    "Ny": 10,
+    "Nx": 50,
+    "Ny": 50,
     "initial_temperature": 293,
     "heater_temperature": 293,
     "outside_temperature": 303,
-    "temperature_goal": 305
+    "temperature_goal": 294
   },
   "optimization":
   {

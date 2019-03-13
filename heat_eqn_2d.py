@@ -19,7 +19,7 @@ class GridModel2D:
     temperature_matrix = []
     temperature_matrix_previous_time = []
     time = 0
-    max_time = 100000
+    max_time = 1000000
 
     def __init__(self, parameters):
         self.length = parameters['simulation']['xlen']

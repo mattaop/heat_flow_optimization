@@ -15,7 +15,6 @@ def load_initial_values(input_file):
     """
 
     data = json.load(open(input_file, "r"))
-    print(data)
     return data
 
 
@@ -29,17 +28,18 @@ def start_optimization():
     # Run the simulation for two random values to get samples for the optimization algorithm
     for i in range(3):
         time = square_room.simulate()
-        print(optimizing_algorithm.xy_samples, optimizing_algorithm.t_samples)
+        print(square_room.heater_placement, time)
         optimizing_algorithm.update_samples(square_room.heater_placement, time)
 
     # Run until we get convergence
     while not optimizing_algorithm.convergence():
         heater_placement = optimizing_algorithm.bayesian_optimization()
         time = square_room.simulate(heater_placement)
+        print(heater_placement, time)
         optimizing_algorithm.update_samples(square_room.heater_placement, time)
 
     return heater_placement
 
 
 if __name__ == '__main__':
-    start_optimization()
+    print(start_optimization())
