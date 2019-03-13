@@ -32,7 +32,7 @@ class GridModel2D:
         self.temperature_goal = parameters['simulation']['temperature_goal']
         self.dx, self.dy = self.length/(self.Nx-1), self.width/(self.Ny-1)
         self.dt = min(self.dx**2*self.dy**2/(2*self.thermal_diffusivity*(self.dx**2+self.dy**2)), 10)  # set dt to the minimum of 10 and max_dt to obtain stable solution
-        self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
+        self.temperature_matrix_previous_time = np.ones((self.Ny, self.Nx))*self.initial_temperature
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
         self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
 
@@ -58,7 +58,7 @@ class GridModel2D:
 
     def simulate(self, heater_placement='Random'):
         if heater_placement == 'Random':
-            self.heater_placement = [random.randint(0, self.Nx-1), random.randint(0, self.Ny-1)]
+            self.heater_placement = [random.randint(0, self.Ny-1), random.randint(0, self.Nx-1)]
         else:
             self.heater_placement = heater_placement
 
