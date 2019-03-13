@@ -65,9 +65,9 @@ class GridModel2D_DD:
 
     def simulate(self, heater_placement='Random'):
         if heater_placement == 'Random':
-            self.heater_placement = [random.randint(0, self.Ny-1), random.randint(0, self.Nx-1)]
+            self.heater_placement = (random.randint(0, self.Ny-1), random.randint(0, self.Nx-1))
         else:
-            self.heater_placement = heater_placement
+            self.heater_placement = (heater_placement[0], heater_placement[1])
 
         self.time = 0
         self.v_x, self.v_y = self.create_velocity_field()
