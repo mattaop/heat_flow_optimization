@@ -46,11 +46,11 @@ class GridModel2D_DD:
         self.temperature_matrix[1:-1, 1:-1] -= (self.temperature_matrix_previous_time[2:, 1:-1] - self.temperature_matrix_previous_time[:-2, 1:-1])*self.dt/self.dx * self.v_x[1:-1, 1:-1]
         self.temperature_matrix[1:-1, 1:-1] -= (self.temperature_matrix_previous_time[1:-1,2:] - self.temperature_matrix_previous_time[1:-1,:-2])*self.dt/self.dy * self.v_y[1:-1, 1:-1]
         self.temperature_matrix[1:-1, 1:-1] -= self.dt*(self.temperature_matrix_previous_time[1:-1, 1:-1]*self.a_x[1:-1, 1:-1] + self.temperature_matrix_previous_time[1:-1, 1:-1]*self.a_y[1:-1, 1:-1])
-        self.temperature_matrix[self.heater_placement] = self.heater_temperature
         self.temperature_matrix[0, :] = (9 * self.temperature_matrix_previous_time[1, :] + self.temperature_outside) / 10
         self.temperature_matrix[-1, :] = (9 * self.temperature_matrix_previous_time[-2, :] + self.temperature_outside) / 10
         self.temperature_matrix[:, 0] = (9 * self.temperature_matrix_previous_time[:, 1] + self.temperature_outside) / 10
         self.temperature_matrix[:, -1] = (9 * self.temperature_matrix_previous_time[:, -2] + self.temperature_outside) / 10
+        self.temperature_matrix[self.heater_placement] = self.heater_temperature
         self.temperature_matrix_previous_time = self.temperature_matrix
         self.time += self.dt
 
