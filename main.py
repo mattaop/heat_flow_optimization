@@ -38,7 +38,7 @@ def start_optimization():
         print(heater_placement, time)
         optimizing_algorithm.update_samples(square_room.heater_placement, time)
 
-    return heater_placement
+    return optimizing_algorithm.best_xy, optimizing_algorithm.best_t
 
 
 if __name__ == '__main__':
