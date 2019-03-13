@@ -10,8 +10,8 @@ print("Project in modelling and optimization of heat flow")
 def load_initial_values(input_file):
     """
     Setting initial values for the optimization
-    :param input_file: JSON file containing input data
-    :return:
+    :param input_file: Path to json file
+    :return: Dict containing data from input_file
     """
 
     data = json.load(open(input_file, "r"))
