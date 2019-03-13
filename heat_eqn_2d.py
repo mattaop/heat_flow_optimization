@@ -32,7 +32,7 @@ class GridModel2D:
         self.temperature_goal = parameters['simulation']['temperature_goal']
         self.dx, self.dy = self.length/(self.Nx-1), self.width/(self.Ny-1)
         self.dt = min(self.dx**2*self.dy**2/(2*self.thermal_diffusivity*(self.dx**2+self.dy**2)), 10)  # set dt to the minimum of 10 and max_dt to obtain stable solution
-        self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
+        self.temperature_matrix_previous_time = np.ones((self.Ny, self.Nx))*self.initial_temperature
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
         self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
 
@@ -58,7 +58,7 @@ class GridModel2D:
 
     def simulate(self, heater_placement='Random'):
         if heater_placement == 'Random':
-            self.heater_placement = [random.randint(0, self.Nx-1), random.randint(0, self.Ny-1)]
+            self.heater_placement = [random.randint(0, self.Ny-1), random.randint(0, self.Nx-1)]
         else:
             self.heater_placement = heater_placement
 
@@ -69,6 +69,18 @@ class GridModel2D:
             self._temperature_at_new_timestep_ftcs()
         return self.time
 
+    def create_velocity_field(self):
+        v_x = np.zeros((self.Nx, self.Ny))
+        v_y = np.zeros_like(v_x)
+        x_H, y_H = self.heater_placement[1], self.heater_placement[0]
+        print(x_H, y_H)
+        for i in range(self.Ny):
+            for j in range(self.Nx):
+                if (j, i) != (x_H, y_H):
+                    v_x[i, j], v_y[i, j] = (j - x_H) / ((j - x_H) ** 2 + (i - y_H) ** 2), (i - y_H) / ((j - x_H) ** 2 + (i - y_H) ** 2)
+        print(v_x)
+        print(v_y)
+        return v_x, v_y
 
 # Eksempel på bruk av kode
 # temperature_outside = 20+273
