@@ -36,15 +36,15 @@ class GridModel2D_DD:
         self.temperature_goal = parameters['simulation']['temperature_goal']
         self.dx, self.dy = self.length/(self.Nx-1), self.width/(self.Ny-1)
         self.dt = min(self.dx**2*self.dy**2/(2*self.thermal_diffusivity*(self.dx**2+self.dy**2)), 10)  # set dt to the minimum of 10 and max_dt to obtain stable solution
-        self.temperature_matrix_previous_time = np.ones((self.Ny, self.Nx))*self.initial_temperature
+        self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
         self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
 
     def _temperature_at_new_timestep_ftcs_dd(self):
         # Propagate with forward-difference in time, central-difference in space
         self.temperature_matrix[1:-1, 1:-1] = self.temperature_matrix_previous_time[1:-1, 1:-1] + self.thermal_diffusivity * self.dt * ((self.temperature_matrix_previous_time[2:, 1:-1] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[:-2, 1:-1]) / self.dx ** 2 + (self.temperature_matrix_previous_time[1:-1, 2:] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[1:-1, :-2]) / self.dy ** 2)
-        self.temperature_matrix[1:-1, 1:-1] -= (self.temperature_matrix_previous_time[2:, 1:-1] - self.temperature_matrix_previous_time[:-2, 1:-1])*self.dt/self.dx * self.v_x[1:-1, 1:-1]
-        self.temperature_matrix[1:-1, 1:-1] -= (self.temperature_matrix_previous_time[1:-1,2:] - self.temperature_matrix_previous_time[1:-1,:-2])*self.dt/self.dy * self.v_y[1:-1, 1:-1]
+        self.temperature_matrix[1:-1, 1:-1] -= (self.temperature_matrix_previous_time[2:, 1:-1] - self.temperature_matrix_previous_time[:-2, 1:-1])*self.dt/(2*self.dx) * self.v_x[1:-1, 1:-1]
+        self.temperature_matrix[1:-1, 1:-1] -= (self.temperature_matrix_previous_time[1:-1,2:] - self.temperature_matrix_previous_time[1:-1,:-2])*self.dt/(2*self.dy) * self.v_y[1:-1, 1:-1]
         self.temperature_matrix[1:-1, 1:-1] -= self.dt*(self.temperature_matrix_previous_time[1:-1, 1:-1]*self.a_x[1:-1, 1:-1] + self.temperature_matrix_previous_time[1:-1, 1:-1]*self.a_y[1:-1, 1:-1])
         self.temperature_matrix[0, :] = (9 * self.temperature_matrix_previous_time[1, :] + self.temperature_outside) / 10
         self.temperature_matrix[-1, :] = (9 * self.temperature_matrix_previous_time[-2, :] + self.temperature_outside) / 10
@@ -54,25 +54,24 @@ class GridModel2D_DD:
         self.temperature_matrix_previous_time = self.temperature_matrix
         self.time += self.dt
 
-    def find_temperature_after_n_timesteps(self, n):
-        for i in range(n):
-            self._temperature_at_new_timestep_ftcs_dd()
+    def plot_temperature_room(self):
         print("avg_temp in room: ", np.mean(self.temperature_matrix))
         print("Time: ", self.time)
-        plt.imshow(self.temperature_matrix, cmap=plt.get_cmap('hot'), vmin=self.initial_temperature, vmax=self.heater_temperature)
+        plt.imshow(self.temperature_matrix, cmap=plt.get_cmap('hot'), vmin=self.initial_temperature,
+                   vmax=self.heater_temperature)
         plt.colorbar()
         plt.show()
 
     def simulate(self, heater_placement='Random'):
         if heater_placement == 'Random':
-            self.heater_placement = (random.randint(0, self.Ny-1), random.randint(0, self.Nx-1))
+            self.heater_placement = (random.randint(0, self.Nx-1), random.randint(0, self.Ny-1))
         else:
             self.heater_placement = (heater_placement[0], heater_placement[1])
 
         self.time = 0
         self.v_x, self.v_y = self.create_velocity_field()
         self.a_x, self.a_y = self.create_change_in_velocity_field()
-        self.temperature_matrix_previous_time = np.ones((self.Ny, self.Nx))*self.initial_temperature
+        self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
         self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
         while np.mean(self.temperature_matrix) < self.temperature_goal and self.time < self.max_time:
@@ -80,27 +79,27 @@ class GridModel2D_DD:
         return self.time
 
     def create_velocity_field(self):
-        v_x = np.zeros((self.Ny, self.Nx))
+        v_x = np.zeros((self.Nx, self.Ny))
         v_y = np.zeros_like(v_x)
-        x_H, y_H = self.heater_placement[1], self.heater_placement[0]
+        x_H, y_H = self.heater_placement[0], self.heater_placement[1]
         print(x_H, y_H)
-        for i in range(self.Ny):
-            for j in range(self.Nx):
-                if (j, i) != (x_H, y_H):
-                    v_x[i, j], v_y[i, j] = (j - x_H) / ((j - x_H) ** 2 + (i - y_H) ** 2), (i - y_H) / ((j - x_H) ** 2 + (i - y_H) ** 2)
+        for i in range(self.Nx):
+            for j in range(self.Ny):
+                if (i, j) != (x_H, y_H):
+                    v_x[i, j], v_y[i, j] = (i - x_H) / ((i - x_H) ** 2 + (j - y_H) ** 2), (j - y_H) / ((i - x_H) ** 2 + (j - y_H) ** 2)
         #print(v_x)
         #print(v_y)
         return v_x, v_y
 
     def create_change_in_velocity_field(self):
-        a_x = np.zeros((self.Ny, self.Nx))
+        a_x = np.zeros((self.Nx, self.Ny))
         a_y = np.zeros_like(a_x)
-        x_H, y_H = self.heater_placement[1], self.heater_placement[0]
+        x_H, y_H = self.heater_placement[0], self.heater_placement[1]
         print(x_H, y_H)
-        for i in range(self.Ny):
-            for j in range(self.Nx):
-                if (j, i) != (x_H, y_H):
-                    a_x[i, j], a_y[i, j] = ((i-y_H)**2-(j - x_H)**2) / ((j - x_H) ** 2 + (i - y_H) ** 2)**2, ((j-x_H)**2-(i - y_H)**2) / ((j - x_H) ** 2 + (i - y_H) ** 2)**2
+        for i in range(self.Nx):
+            for j in range(self.Ny):
+                if (i, j) != (x_H, y_H):
+                    a_x[i, j], a_y[i, j] = ((j-y_H)**2-(i - x_H)**2) / ((i - x_H) ** 2 + (j - y_H) ** 2)**2, ((i-x_H)**2-(j - y_H)**2) / ((i - x_H) ** 2 + (j - y_H) ** 2)**2
         #print(v_x)
         #print(v_y)
         return a_x, a_y
