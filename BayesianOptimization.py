@@ -37,7 +37,7 @@ class BayesianOptimization:
             ei[sigma == 0.0] = 0.0
         return ei
 
-    def _propose_location(self, n_restarts=2):
+    def _propose_location(self, n_restarts=25):
         # Find the best optimum by starting from n_restart different random points.
         dim = self.xy_samples.shape[1]
         x0s = np.array(np.random.uniform(self.bounds[0, 0], self.bounds[0, 1], size=(n_restarts, dim)))
