@@ -21,15 +21,16 @@ square_room = HE.GridModel2D(parameters)
 
 def f(x):
     print(x)
-    return square_room.simulate(x)
+    value = (x[0] - 2) ** 2 + (x[1] - 2) ** 2
+    print(value)
+    return value
 
 
 res = gp_minimize(f,                  # the function to minimize
                   [(0, parameters['simulation']['Nx']-1), (0, parameters['simulation']['Nx']-1)],   # the bounds on each dimension of x
                   acq_func="EI",      # the acquisition function
                   n_calls=20,         # the number of evaluations of f
-                  n_random_starts=3,  # the number of random initialization points
-                  noise=0.1**10       # the noise level (optional)
+                  n_random_starts=5,  # the number of random initialization points
+                  noise=0.1**10,      # the noise level (optional)
                   random_state=None)
 print(res.x)
-print(f([5, 5]))
