@@ -1,6 +1,9 @@
 import numpy as np
 import heat_eqn_2d as HE
+import drift_diffusion_2d as DD
 from skopt import gp_minimize
+from skopt.plots import plot_convergence
+import matplotlib.pyplot as plt
 import json
 
 
@@ -17,20 +20,47 @@ def load_initial_values(input_file):
 
 parameters = load_initial_values("initial_values/mathias.json")
 square_room = HE.GridModel2D(parameters)
+#square_room = DD.GridModel2D_DD(parameters)
 
 
 def f(x):
-    print(x)
     value = (x[0] - 2) ** 2 + (x[1] - 2) ** 2
-    print(value)
     return value
 
 
-res = gp_minimize(f,                  # the function to minimize
-                  [(0, parameters['simulation']['Nx']-1), (0, parameters['simulation']['Nx']-1)],   # the bounds on each dimension of x
-                  acq_func="EI",      # the acquisition function
-                  n_calls=20,         # the number of evaluations of f
-                  n_random_starts=5,  # the number of random initialization points
-                  noise=0.1**10,      # the noise level (optional)
-                  random_state=None)
-print(res.x)
+def func(x):
+    #x = np.round(x, 0)
+    #x = x.astype(int)
+    value = square_room.simulate(x)
+    return value
+
+
+def optimize():
+    res = gp_minimize(func,                  # the function to minimize
+                      [(0, parameters['simulation']['Nx']-1), (0, parameters['simulation']['Nx']-1)],   # the bounds on each dimension of x
+                      acq_func="EI",      # the acquisition function
+                      n_calls=50,         # the number of evaluations of f
+                      n_random_starts=5,  # the number of random initialization points
+                      noise=1.0,          # the noise level (optional)
+                      random_state=None)
+    return res
+
+"""
+res_fun = []
+
+for i in range(1):
+    print("Iteration ", i)
+    res_fun.append(optimize().fun)
+print(sum(res_fun)/10)
+print(max(res_fun))
+print(min(res_fun))
+
+plt.figure()
+plt.plot(np.linspace(0, len(res_fun), len(res_fun)), res_fun)
+plt.show()
+"""
+
+res = optimize()
+plt.figure()
+plt.plot(np.linspace(0, len(res.func_vals), len(res.func_vals)), res.func_vals)
+plt.show()

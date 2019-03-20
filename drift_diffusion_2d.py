@@ -19,7 +19,7 @@ class GridModel2D_DD:
     temperature_matrix = []
     temperature_matrix_previous_time = []
     time = 0
-    max_time = 100000
+    max_time = 1000000
     v_x = []
     v_y = []
     a_x = []
@@ -76,6 +76,7 @@ class GridModel2D_DD:
         self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
         while np.mean(self.temperature_matrix) < self.temperature_goal and self.time < self.max_time:
             self._temperature_at_new_timestep_ftcs_dd()
+        print(self.time)
         return self.time
 
     def create_velocity_field(self):

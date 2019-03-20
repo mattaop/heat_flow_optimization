@@ -22,10 +22,13 @@ def dummy_time(position):
 
 
 def naive_search():
-    T = np.zeros((4, 4))
-    for i in range(4):
-        for j in range(4):
-            T[i, j] = dummy_time((i, j))
+    parameters = load_initial_values("initial_values/mathias.json")
+    square_room = HE.GridModel2D(parameters)
+    T = np.zeros([parameters['simulation']['Nx'], parameters['simulation']['Ny']])
+    for i in range(parameters['simulation']['Nx']):
+        for j in range(parameters['simulation']['Ny']):
+            T[i, j] = square_room.simulate([i, j])
+            print(i, j)
     return T, np.unravel_index(np.argmin(T, axis=None), T.shape), np.min(T)
 
 
@@ -72,7 +75,8 @@ def gradient_descent(iterations):
 
 
 
-
-print(gradient_descent(10))
+T, min_T_arg, min_T = naive_search()
+print(T)
+#print(gradient_descent(10))
 #print('Entire grid: ', naive_search())
 
