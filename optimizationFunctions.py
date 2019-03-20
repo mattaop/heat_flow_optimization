@@ -1,9 +1,20 @@
 # Her skjer det mykje kult
 import numpy as np
+import heat_eqn_2d as HE
+import json
 
 
 np.random.seed(69)
 
+def load_initial_values(input_file):
+    """
+    Setting initial values for the optimization
+    :param input_file: Path to json file
+    :return: Dict containing data from input_file
+    """
+
+    data = json.load(open(input_file, "r"))
+    return data
 
 def dummy_time(position):
     T = np.array([[43, 38, 38, 43], [37, 32, 32, 37], [2, 200, 0.2, 20], [43, 38, 38, 10]])
@@ -27,23 +38,26 @@ def get_neighbours(position):
 
 
 def gradient_descent(iterations):
+    parameters = load_initial_values("initial_values/mathias.json")
     positions = []
     times = []
+    square_room = HE.GridModel2D(parameters)
     for iteration in range(iterations):
-        position = (np.random.randint(0,4), np.random.randint(0,4))
+        position = (np.random.randint(0, parameters['simulation']['Nx']), np.random.randint(0, parameters['simulation']['Ny']))
         print('Random position generated to: ', position)
-        T = np.zeros((4, 4))
-        T[position] = dummy_time(position)
+        T = np.zeros((parameters['simulation']['Nx'], parameters['simulation']['Ny']))
+
+        T[position] = square_room.simulate(position)
         while True:
             neighbours = get_neighbours(position)
             neighbours = map(tuple, neighbours)
-            #print('Neighbours ', neighbours)
+            print('Neighbours ', neighbours)
             improvement_found = False
             best_neighbour = position
             for neighbour in neighbours:
-                T[neighbour] = dummy_time(neighbour)
-                #print('Neighbour is ', neighbour)
-                #print('Temp of neihgbour is ', T[neighbour])
+                T[neighbour] = square_room.simulate(neighbour)
+                print('Neighbour is ', neighbour)
+                print('Time of neihgbour is ', T[neighbour])
                 if T[neighbour] < T[best_neighbour]:
                     improvement_found = True
                     best_neighbour = neighbour
@@ -59,6 +73,6 @@ def gradient_descent(iterations):
 
 
 
-#print(gradient_descent(1))
+print(gradient_descent(10))
 #print('Entire grid: ', naive_search())
 

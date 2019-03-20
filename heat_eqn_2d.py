@@ -19,7 +19,7 @@ class GridModel2D:
     temperature_matrix = []
     temperature_matrix_previous_time = []
     time = 0
-    max_time = 1000000
+    max_time = 10000000
 
     def __init__(self, parameters):
         self.length = parameters['simulation']['xlen']
@@ -39,11 +39,11 @@ class GridModel2D:
     def _temperature_at_new_timestep_ftcs(self):
         # Propagate with forward-difference in time, central-difference in space
         self.temperature_matrix[1:-1, 1:-1] = self.temperature_matrix_previous_time[1:-1, 1:-1] + self.thermal_diffusivity * self.dt * ((self.temperature_matrix_previous_time[2:, 1:-1] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[:-2, 1:-1]) / self.dx ** 2 + (self.temperature_matrix_previous_time[1:-1, 2:] - 2 * self.temperature_matrix_previous_time[1:-1, 1:-1] + self.temperature_matrix_previous_time[1:-1, :-2]) / self.dy ** 2)
-        self.temperature_matrix[self.heater_placement] = self.heater_temperature
         self.temperature_matrix[0, :] = (9 * self.temperature_matrix_previous_time[1, :] + self.temperature_outside) / 10
         self.temperature_matrix[-1, :] = (9 * self.temperature_matrix_previous_time[-2, :] + self.temperature_outside) / 10
         self.temperature_matrix[:, 0] = (9 * self.temperature_matrix_previous_time[:, 1] + self.temperature_outside) / 10
         self.temperature_matrix[:, -1] = (9 * self.temperature_matrix_previous_time[:, -2] + self.temperature_outside) / 10
+        self.temperature_matrix[self.heater_placement] = self.heater_temperature
         self.temperature_matrix_previous_time = self.temperature_matrix
         self.time += self.dt
 
@@ -58,15 +58,17 @@ class GridModel2D:
 
     def simulate(self, heater_placement='Random'):
         if heater_placement == 'Random':
-            self.heater_placement = [random.randint(0, self.Ny-1), random.randint(0, self.Nx-1)]
+            self.heater_placement = (random.randint(0, self.Ny-1), random.randint(0, self.Nx-1))
         else:
-            self.heater_placement = heater_placement
+            self.heater_placement = (heater_placement[0], heater_placement[1])
 
         self.time = 0
-        self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
+        self.temperature_matrix_previous_time = np.ones((self.Ny, self.Nx))*self.initial_temperature
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
-        while np.min(self.temperature_matrix) < self.temperature_goal and self.time < self.max_time:
+        self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
+        while np.mean(self.temperature_matrix) < self.temperature_goal and self.time < self.max_time:
             self._temperature_at_new_timestep_ftcs()
+        print(np.mean(self.temperature_matrix), self.time)
         return self.time
 
 
