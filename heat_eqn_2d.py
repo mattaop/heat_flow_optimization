@@ -68,7 +68,7 @@ class GridModel2D:
         self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
         while np.mean(self.temperature_matrix) < self.temperature_goal and self.time < self.max_time:
             self._temperature_at_new_timestep_ftcs()
-        print(np.mean(self.temperature_matrix), self.time)
+        print(np.mean(self.temperature_matrix), self.time, self.heater_placement)
         return self.time
 
 

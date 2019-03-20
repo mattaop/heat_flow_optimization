@@ -37,7 +37,7 @@ class BayesianOptimization:
             ei[sigma == 0.0] = 0.0
         return ei
 
-    def _propose_location(self, n_restarts=5):
+    def _propose_location(self, n_restarts=2):
         # Find the best optimum by starting from n_restart different random points.
         dim = self.xy_samples.shape[1]
         x0s = np.array(np.random.uniform(self.bounds[0, 0], self.bounds[0, 1], size=(n_restarts, dim)))
@@ -51,9 +51,11 @@ class BayesianOptimization:
             #print("Propose: ", x0)
             res = minimize(min_obj, x0=x0, bounds=self.bounds, method='L-BFGS-B')
             #print("Best", res.x)
+            print(res.fun, x0, res.x)
             if res.fun < min_val:  # If value of new point is smaller than min_val, update min_val
                 min_val = res.fun[0]
                 min_x = res.x
+        print("min_x", min_x)
         return min_x
 
     def bayesian_optimization(self):
@@ -68,8 +70,8 @@ class BayesianOptimization:
         xy_next = self._propose_location()
 
         # Return ints for placement in array
-        xy_next = np.round(xy_next, 0)
-        xy_next = xy_next.astype(int)
+        #xy_next = np.round(xy_next, 0)
+        #xy_next = xy_next.astype(int)
 
         # Obtain next noisy sample from the objective function
         return xy_next
