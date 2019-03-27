@@ -3,9 +3,6 @@ import matplotlib.pyplot as plt
 import scipy
 from scipy.spatial.distance import cdist
 from scipy.stats import norm
-from scipy.optimize import minimize
-from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import ConstantKernel, Matern
 
 
 class BayesianOptimization:
@@ -14,12 +11,7 @@ class BayesianOptimization:
         self.t_samples = np.empty((0, 0), int)
         self.dim = self.xy_samples.shape
         self.bounds = np.array([[0, parameters['simulation']['Nx']-1], [0, parameters['simulation']['Ny']-1]])
-        self.noise = 10**(-2)
-        self.threshold = 1
-
-        # Setting kernel and Gaussian Process Regression
-        self.m52 = ConstantKernel(2.0) * Matern(length_scale=2.0, nu=2.5)
-        self.gpr = GaussianProcessRegressor(kernel=self.m52, normalize_y=True, alpha=self.noise ** 2)
+        self.threshold = 10**(-3)
 
         self.convergence = False
 
@@ -33,7 +25,7 @@ class BayesianOptimization:
         sq_norm = -1/25 * cdist(xa, xb, 'sqeuclidean')
         return np.exp(sq_norm)
 
-    def _GP(self, x1, y1, x):
+    def _gaussian_process(self, x1, y1, x):
         """
         Calculate the posterior mean and covariance matrix for y2
         based on the corresponding input X2, the observations (y1, X1),
@@ -55,7 +47,7 @@ class BayesianOptimization:
         return mu_2, sigma_2
 
     def _expected_improvement(self, x, xi=0.01):
-        mu, sigma = self._GP(self.xy_samples, self.t_samples, x)
+        mu, sigma = self._gaussian_process(self.xy_samples, self.t_samples, x)
         mu_sample_opt = np.max(self.t_samples)
 
         with np.errstate(divide='warn'):
@@ -65,7 +57,7 @@ class BayesianOptimization:
             ei[sigma == 0.0] = 0.0
         return ei, mu, sigma
 
-    def _propose_location(self):
+    def propose_location(self):
         dim = self.xy_samples.shape[1]
         ei_matrix = np.zeros([self.bounds[0, 1], self.bounds[1, 1]])
         mu_matrix = np.zeros([self.bounds[0, 1], self.bounds[1, 1]])
@@ -77,34 +69,20 @@ class BayesianOptimization:
 
         plt.imshow(mu_matrix)
         plt.colorbar()
-        plt.show()
+        #plt.show()
 
         plt.imshow(sigma_matrix)
         plt.colorbar()
-        plt.show()
+        #plt.show()
 
         plt.imshow(ei_matrix)
         plt.colorbar()
-        plt.show()
+        #plt.show()
         print(ei_matrix.max())
-        if ei_matrix.max() <= 0:
+        if ei_matrix.max() <= self.threshold:
             print("Convergence")
             self.convergence = True
         return [i, j]
-
-    def optimization(self):
-        """
-        Finds next coordinate to simulate
-        :return: coordinate to simulate
-        """
-        # Update Gaussian process with existing samples
-        self.gpr.fit(self.xy_samples, self.t_samples)
-
-        # Obtain next sampling point from the acquisition function (expected_improvement)
-        xy_next = self._propose_location()
-
-        # Obtain next noisy sample from the objective function
-        return xy_next
 
     def update_samples(self, new_xy_sample, new_t_sample):
         """
@@ -120,4 +98,8 @@ class BayesianOptimization:
         self.dim = self.xy_samples.shape
 
     def check_convergence(self):
+        """
+        Checks if the max expected improvement is less than the threshold
+        :return: bool: If converged or not
+        """
         return self.convergence

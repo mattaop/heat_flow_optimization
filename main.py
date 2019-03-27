@@ -38,8 +38,10 @@ def start_optimization():
         optimizing_algorithm.update_samples(square_room.heater_placement, scale_time(time))
 
     # Run until we get convergence
-    while not optimizing_algorithm.check_convergence():
-        heater_placement = optimizing_algorithm.optimization()
+    while True:
+        heater_placement = optimizing_algorithm.propose_location()
+        if optimizing_algorithm.check_convergence():
+            break
         time = square_room.simulate(heater_placement)
         optimizing_algorithm.update_samples(square_room.heater_placement, scale_time(time))
 
