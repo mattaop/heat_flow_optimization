@@ -29,10 +29,8 @@ def f(x):
 
 
 def func(x):
-    #x = np.round(x, 0)
-    #x = x.astype(int)
     value = square_room.simulate(x)
-    return value
+    return value/10000000
 
 
 def optimize():
@@ -41,7 +39,7 @@ def optimize():
                       acq_func="EI",      # the acquisition function
                       n_calls=50,         # the number of evaluations of f
                       n_random_starts=5,  # the number of random initialization points
-                      noise=1.0,          # the noise level (optional)
+                      noise=10**(-2),     # the noise level (optional)
                       random_state=None)
     return res
 

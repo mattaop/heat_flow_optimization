@@ -20,6 +20,10 @@ def load_initial_values(input_file):
     return data
 
 
+def scale_time(time):
+    return 1-time/10000000
+
+
 def start_optimization():
     parameters = load_initial_values("initial_values/mathias.json")
 
@@ -30,20 +34,16 @@ def start_optimization():
 
     # Run the simulation for two random values to get samples for the optimization algorithm
     for i in range(3):
-        # time = square_room.simulate()
-        time = test_function.f([random.randint(0, 9), random.randint(0, 9)])
-        # print(square_room.heater_placement, time)
-        optimizing_algorithm.update_samples(heater_placement, time)
+        time = square_room.simulate()
+        optimizing_algorithm.update_samples(square_room.heater_placement, scale_time(time))
 
     # Run until we get convergence
-    # while not optimizing_algorithm.convergence():
-    for i in range(5):
-        heater_placement = optimizing_algorithm.bayesian_optimization()
-        # time = square_room.simulate(heater_placement)
-        time = test_function.f(heater_placement)
-        # print(heater_placement, time)
-        # optimizing_algorithm.update_samples(square_room.heater_placement, time)
-        optimizing_algorithm.update_samples((heater_placement[0], heater_placement[1]), time)
+    while True:
+        heater_placement = optimizing_algorithm.propose_location()
+        if optimizing_algorithm.check_convergence():
+            break
+        time = square_room.simulate(heater_placement)
+        optimizing_algorithm.update_samples(square_room.heater_placement, scale_time(time))
 
     return optimizing_algorithm.best_xy, optimizing_algorithm.best_t
 
