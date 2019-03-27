@@ -21,6 +21,7 @@ class BayesianOptimization:
         self.m52 = ConstantKernel(2.0) * Matern(length_scale=2.0, nu=2.5)
         self.gpr = GaussianProcessRegressor(kernel=self.m52, normalize_y=True, alpha=self.noise ** 2)
 
+        self.convergence = False
 
         # Save best values
         self.best_xy = [0, 0]
@@ -54,14 +55,7 @@ class BayesianOptimization:
         return mu_2, sigma_2
 
     def _expected_improvement(self, x, xi=0.01):
-        #print("x", x)
-        #print("earlier samples", self.xy_samples)
-
         mu, sigma = self._GP(self.xy_samples, self.t_samples, x)
-        #print(sigma)
-        # sigma = sigma.reshape(-1, self.xy_samples[1])
-
-        # Needed for noise-based model, otherwise use np.max(Y_sample).
         mu_sample_opt = np.max(self.t_samples)
 
         with np.errstate(divide='warn'):
@@ -71,28 +65,7 @@ class BayesianOptimization:
             ei[sigma == 0.0] = 0.0
         return ei, mu, sigma
 
-    def _propose_location(self, n_restarts=25):
-        # Find the best optimum by starting from n_restart different random points.
-        dim = self.xy_samples.shape[1]
-        x0s = np.array(np.random.uniform(self.bounds[0, 0], self.bounds[0, 1], size=(n_restarts, dim)))
-        min_val = np.inf
-        min_x = None
-
-        def min_obj(x):
-            return self._expected_improvement(x.reshape(-1, dim))
-
-        for x0 in x0s:  # To avoid local minima
-            #print("Propose: ", x0)
-            res = minimize(min_obj, x0=x0, bounds=self.bounds, method='L-BFGS-B')
-            #print("Best", res.x)
-            print(res.fun, x0, res.x)
-            if res.fun < min_val:  # If value of new point is smaller than min_val, update min_val
-                min_val = res.fun[0]
-                min_x = res.x
-        print("min_x", min_x)
-        return min_x
-
-    def _propose_location_2(self):
+    def _propose_location(self):
         dim = self.xy_samples.shape[1]
         ei_matrix = np.zeros([self.bounds[0, 1], self.bounds[1, 1]])
         mu_matrix = np.zeros([self.bounds[0, 1], self.bounds[1, 1]])
@@ -113,6 +86,10 @@ class BayesianOptimization:
         plt.imshow(ei_matrix)
         plt.colorbar()
         plt.show()
+        print(ei_matrix.max())
+        if ei_matrix.max() <= 0:
+            print("Convergence")
+            self.convergence = True
         return [i, j]
 
     def optimization(self):
@@ -124,11 +101,7 @@ class BayesianOptimization:
         self.gpr.fit(self.xy_samples, self.t_samples)
 
         # Obtain next sampling point from the acquisition function (expected_improvement)
-        xy_next = self._propose_location_2()
-
-        # Return ints for placement in array
-        #xy_next = np.round(xy_next, 0)
-        #xy_next = xy_next.astype(int)
+        xy_next = self._propose_location()
 
         # Obtain next noisy sample from the objective function
         return xy_next
@@ -146,8 +119,5 @@ class BayesianOptimization:
         self.best_xy = self.xy_samples[np.argmax(self.t_samples)]
         self.dim = self.xy_samples.shape
 
-    def convergence(self):
-        if np.abs(self.t_samples[-1]-np.mean([self.t_samples[-2], self.t_samples[-3]])) <= self.threshold:
-            return True
-        else:
-            return False
+    def check_convergence(self):
+        return self.convergence
