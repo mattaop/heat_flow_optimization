@@ -19,10 +19,10 @@ class BayesianOptimization:
         self.best_xy = [0, 0]
         self.best_t = np.inf
 
-    def _exponentiated_quadratic(self, xa, xb):
+    def _exponentiated_quadratic(self, xa, xb, scale=1/100):
         """Exponentiated quadratic  with σ=1"""
         # L2 distance (Squared Euclidian)
-        sq_norm = -1/25 * cdist(xa, xb, 'sqeuclidean')
+        sq_norm = - scale * cdist(xa, xb, 'sqeuclidean')
         return np.exp(sq_norm)
 
     def _gaussian_process(self, x1, y1, x):
@@ -32,19 +32,21 @@ class BayesianOptimization:
         and the prior kernel function.
         """
         # Kernel of the observations
-        sigma_11 = self._exponentiated_quadratic(x1, x1)
-        for i in range(self.bounds[0, 1]):
-            for j in range(self.bounds[1, 1]):
-                # Kernel of observations vs to-predict
-                sigma_12 = self._exponentiated_quadratic(x1, x)
-                # Solve
-                solved = scipy.linalg.solve(sigma_11, sigma_12, assume_a='pos').T
-                # Compute posterior mean
-                mu_2 = solved @ y1
-                # Compute the posterior covariance
-                sigma_22 = self._exponentiated_quadratic(x, x)
-                sigma_2 = sigma_22 - (solved @ sigma_12)
-        return mu_2, sigma_2
+        sigma_11 = self._exponentiated_quadratic(x1, x1)+0.1*np.eye(len(x1))
+        # Kernel of observations vs to-predict
+        sigma_12 = self._exponentiated_quadratic(x, x1)
+        # Solve
+        # print(sigma_11, sigma_12)
+        solved = scipy.linalg.solve(sigma_11, sigma_12.T, assume_a='pos')
+        # Compute posterior mean
+        # print(solved)
+        # print(y1)
+        mu_2 = np.mean(y1)+(y1-np.mean(y1)*np.ones(len(y1))) @ solved
+        # Compute the posterior covariance
+        sigma_22 = self._exponentiated_quadratic(x, x)
+        sigma_2 = sigma_22 - (sigma_12@solved)
+        # print('m',  mu_2, 'sigma', sigma_2)
+        return mu_2[0], sigma_2
 
     def _expected_improvement(self, x, xi=0.01):
         mu, sigma = self._gaussian_process(self.xy_samples, self.t_samples, x)
@@ -67,6 +69,7 @@ class BayesianOptimization:
                 ei_matrix[i, j], mu_matrix[i, j], sigma_matrix[i, j] = self._expected_improvement(np.array([i, j]).reshape(-1, dim))
         i, j = np.unravel_index(ei_matrix.argmax(), ei_matrix.shape)
 
+        """
         plt.imshow(mu_matrix)
         plt.colorbar()
         plt.show()
@@ -74,11 +77,11 @@ class BayesianOptimization:
         plt.imshow(sigma_matrix)
         plt.colorbar()
         plt.show()
-
+        """
         plt.imshow(ei_matrix)
         plt.colorbar()
-        plt.show()
-        print(ei_matrix.max())
+        #plt.show()
+
         if ei_matrix.max() <= self.threshold:
             print("Convergence")
             self.convergence = True

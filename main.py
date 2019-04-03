@@ -22,7 +22,7 @@ def load_initial_values(input_file):
 
 
 def scale_time(time):
-    return 1-time/10000000
+    return -np.log(time)
 
 
 def start_optimization():
@@ -35,15 +35,17 @@ def start_optimization():
     test_function = test.TestFunction()
 
     # Run the simulation for two random values to get samples for the optimization algorithm
-    for i in range(3):
+    for i in range(10):
         time = square_room.simulate()
         optimizing_algorithm.update_samples(square_room.heater_placement, scale_time(time))
 
     # Run until we get convergence
     while True:
+        print("Find next location...")
         heater_placement = optimizing_algorithm.propose_location()
         if optimizing_algorithm.check_convergence():
             break
+        print("Simulate...")
         time = square_room.simulate(heater_placement)
         optimizing_algorithm.update_samples(square_room.heater_placement, scale_time(time))
 

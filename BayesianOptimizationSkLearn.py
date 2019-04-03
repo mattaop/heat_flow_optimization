@@ -19,8 +19,8 @@ def load_initial_values(input_file):
 
 
 parameters = load_initial_values("initial_values/mathias.json")
-square_room = HE.GridModel2D(parameters)
-#square_room = DD.GridModel2D_DD(parameters)
+#square_room = HE.GridModel2D(parameters)
+square_room = DD.GridModel2D_DD(parameters)
 
 
 def f(x):
@@ -34,14 +34,14 @@ def func(x):
 
 
 def optimize():
-    res = gp_minimize(func,                  # the function to minimize
-                      [(0, parameters['simulation']['Nx']-1), (0, parameters['simulation']['Nx']-1)],   # the bounds on each dimension of x
-                      acq_func="EI",      # the acquisition function
-                      n_calls=50,         # the number of evaluations of f
-                      n_random_starts=5,  # the number of random initialization points
-                      noise=10**(-2),     # the noise level (optional)
-                      random_state=None)
-    return res
+    result = gp_minimize(func,                  # the function to minimize
+                         [(0, parameters['simulation']['Nx']-1), (0, parameters['simulation']['Nx']-1)], #  the bounds on each dimension of x
+                         acq_func="EI",      # the acquisition function
+                         n_calls=50,         # the number of evaluations of f
+                         n_random_starts=5,  # the number of random initialization points
+                         noise=10**(-2),     # the noise level (optional)
+                         random_state=None)
+    return result
 
 """
 res_fun = []
