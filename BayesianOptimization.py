@@ -69,15 +69,15 @@ class BayesianOptimization:
 
         plt.imshow(mu_matrix)
         plt.colorbar()
-        #plt.show()
+        plt.show()
 
         plt.imshow(sigma_matrix)
         plt.colorbar()
-        #plt.show()
+        plt.show()
 
         plt.imshow(ei_matrix)
         plt.colorbar()
-        #plt.show()
+        plt.show()
         print(ei_matrix.max())
         if ei_matrix.max() <= self.threshold:
             print("Convergence")
@@ -100,6 +100,6 @@ class BayesianOptimization:
     def check_convergence(self):
         """
         Checks if the max expected improvement is less than the threshold
-        :return: bool: If converged or not
+        :return: bool: True if converged
         """
         return self.convergence

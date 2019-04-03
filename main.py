@@ -1,5 +1,6 @@
 import BayesianOptimization as BO
 import heat_eqn_2d as HE
+import drift_diffusion_2d as DD
 import test
 import numpy as np
 import random
@@ -28,7 +29,8 @@ def start_optimization():
     parameters = load_initial_values("initial_values/mathias.json")
 
     heater_placement = [0, 0]
-    square_room = HE.GridModel2D(parameters)
+    #square_room = HE.GridModel2D(parameters)
+    square_room = DD.GridModel2D_DD(parameters)
     optimizing_algorithm = BO.BayesianOptimization(parameters)
     test_function = test.TestFunction()
 
