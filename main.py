@@ -39,7 +39,7 @@ def start_optimization():
 
     # Run the simulation for two random values to get samples for the optimization algorithm
     for i in range(10):
-        print('Simulate location', len(optimizing_algorithm.t_samples)+1, '...')
+        #print('Simulate location', len(optimizing_algorithm.t_samples)+1, '...')
         start_time = time.time()
         time_at_placement = square_room.simulate()
         simulation_time += time.time()-start_time
@@ -53,22 +53,23 @@ def start_optimization():
     start_time = time.time()
     while True:
         heater_placement = optimizing_algorithm.propose_location()
-        print("Expected improvement left: ", optimizing_algorithm.ei)
-        print("Threshold for convergence: ", optimizing_algorithm.threshold)
+        #print("Expected improvement left: ", optimizing_algorithm.ei)
+        #print("Threshold for convergence: ", optimizing_algorithm.threshold)
         if optimizing_algorithm.check_convergence():
             break
         optimization_time += time.time()-start_time
         start_time = time.time()
-        print('Simulate location', len(optimizing_algorithm.t_samples)+1, '...')
+        #print('Simulate location', len(optimizing_algorithm.t_samples)+1, '...')
         time_at_placement = square_room.simulate(heater_placement)
         simulation_time += time.time()-start_time
         start_time = time.time()
         optimizing_algorithm.update_samples(square_room.heater_placement, scale_time(time_at_placement))
+        print (optimizing_algorithm.best_xy)
     return len(optimizing_algorithm.t_samples+1), optimization_time, simulation_time
 
 
 if __name__ == '__main__':
-    number_of_trials = 1
+    number_of_trials = 5
     number_of_iterations = np.zeros([number_of_trials])
     time_per_iteration = np.zeros([number_of_trials])
     optimization_time = np.zeros([number_of_trials])

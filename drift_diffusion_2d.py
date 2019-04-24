@@ -107,7 +107,7 @@ class GridModel2D_DD:
         # also make use of max_time in the cases where the room never achieve the goal temperature
         while np.mean(self.temperature_matrix) < self.temperature_goal and self.time < self.max_time:
             self._temperature_at_new_timestep_ftcs_dd()
-        print(self.time)
+        #print(self.time)
         return self.time
 
     def create_velocity_field(self):
