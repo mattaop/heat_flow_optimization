@@ -11,7 +11,8 @@ class BayesianOptimization:
         self.t_samples = np.empty((0, 0), int)
         self.dim = self.xy_samples.shape
         self.bounds = np.array([[0, parameters['simulation']['Nx']-1], [0, parameters['simulation']['Ny']-1]])
-        self.threshold = 10**(-3)
+        self.threshold = 10**(-2)
+        self.ei = 1
 
         self.convergence = False
 
@@ -19,7 +20,7 @@ class BayesianOptimization:
         self.best_xy = [0, 0]
         self.best_t = np.inf
 
-    def _exponentiated_quadratic(self, xa, xb, scale=1/100):
+    def _exponentiated_quadratic(self, xa, xb, scale=1/200):
         """Exponentiated quadratic  with σ=1"""
         # L2 distance (Squared Euclidian)
         sq_norm = - scale * cdist(xa, xb, 'sqeuclidean')
@@ -59,7 +60,7 @@ class BayesianOptimization:
             ei[sigma == 0.0] = 0.0
         return ei, mu, sigma
 
-    def propose_location(self):
+    def propose_location(self, plot=False):
         dim = self.xy_samples.shape[1]
         ei_matrix = np.zeros([self.bounds[0, 1], self.bounds[1, 1]])
         mu_matrix = np.zeros([self.bounds[0, 1], self.bounds[1, 1]])
@@ -69,21 +70,11 @@ class BayesianOptimization:
                 ei_matrix[i, j], mu_matrix[i, j], sigma_matrix[i, j] = self._expected_improvement(np.array([i, j]).reshape(-1, dim))
         i, j = np.unravel_index(ei_matrix.argmax(), ei_matrix.shape)
 
-        """
-        plt.imshow(mu_matrix)
-        plt.colorbar()
-        plt.show()
+        self.plots(plot, ei_matrix, mu_matrix, sigma_matrix)
+        self.ei = ei_matrix.max()
 
-        plt.imshow(sigma_matrix)
-        plt.colorbar()
-        plt.show()
-        """
-        plt.imshow(ei_matrix)
-        plt.colorbar()
-        #plt.show()
-
-        if ei_matrix.max() <= self.threshold:
-            print("Convergence")
+        if self.ei <= self.threshold:
+            print('Convergence at iteration ', len(self.t_samples)+1, '...')
             self.convergence = True
         return [i, j]
 
@@ -106,3 +97,21 @@ class BayesianOptimization:
         :return: bool: True if converged
         """
         return self.convergence
+
+    def plots(self, plot, ei_matrix, mu_matrix, sigma_matrix):
+        if plot == 'ei' or plot == 'expected_improvement' or plot == 'all':
+            plt.imshow(ei_matrix)
+            plt.title('Expected improvement over the area')
+            plt.ylabel('y')
+            plt.xlabel('x')
+            cbar = plt.colorbar()
+            cbar.set_label('Expected improvement')
+            plt.show()
+        if plot == 'mean' or plot == 'all':
+            plt.imshow(mu_matrix)
+            plt.colorbar()
+            plt.show()
+        if plot == 'sigma' or plot == 'all':
+            plt.imshow(sigma_matrix)
+            plt.colorbar()
+            plt.show()
