@@ -38,7 +38,7 @@ def start_optimization():
     simulation_time = 0
 
     # Run the simulation for two random values to get samples for the optimization algorithm
-    for i in range(10):
+    for i in range(3):
         #print('Simulate location', len(optimizing_algorithm.t_samples)+1, '...')
         start_time = time.time()
         time_at_placement = square_room.simulate()
@@ -64,7 +64,7 @@ def start_optimization():
         simulation_time += time.time()-start_time
         start_time = time.time()
         optimizing_algorithm.update_samples(square_room.heater_placement, scale_time(time_at_placement))
-        print (optimizing_algorithm.best_xy)
+        print(optimizing_algorithm.best_xy)
     return len(optimizing_algorithm.t_samples+1), optimization_time, simulation_time
 
 

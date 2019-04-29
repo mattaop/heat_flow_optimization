@@ -20,16 +20,16 @@ class BayesianOptimization:
         self.best_xy = [0, 0]
         self.best_t = np.inf
 
-    def _exponentiated_quadratic(self, xa, xb, scale=1/200):
+    def _exponentiated_quadratic(self, xa, xb, scale=1/400):
         """Exponentiated quadratic  with σ=1"""
         # L2 distance (Squared Euclidian)
         sq_norm = - scale * cdist(xa, xb, 'sqeuclidean')
         return np.exp(sq_norm)
 
-    def _gaussian_process(self, x1, y1, x):
+    def _gaussian_process(self, x1, t1, x):
         """
-        Calculate the posterior mean and covariance matrix for y2
-        based on the corresponding input X2, the observations (y1, X1),
+        Calculate the posterior mean and covariance matrix for t
+        based on the corresponding input x, the observations (x1, t1),
         and the prior kernel function.
         """
         # Kernel of the observations
@@ -42,7 +42,7 @@ class BayesianOptimization:
         # Compute posterior mean
         # print(solved)
         # print(y1)
-        mu_2 = np.mean(y1)+(y1-np.mean(y1)*np.ones(len(y1))) @ solved
+        mu_2 = np.mean(t1)+(t1-np.mean(t1)*np.ones(len(t1))) @ solved
         # Compute the posterior covariance
         sigma_22 = self._exponentiated_quadratic(x, x)
         sigma_2 = sigma_22 - (sigma_12@solved)
@@ -50,6 +50,7 @@ class BayesianOptimization:
         return mu_2[0], sigma_2
 
     def _expected_improvement(self, x, xi=0.01):
+        """Compute the expected improvement at point x. xi is some constant."""
         mu, sigma = self._gaussian_process(self.xy_samples, self.t_samples, x)
         mu_sample_opt = np.max(self.t_samples)
 
@@ -60,7 +61,8 @@ class BayesianOptimization:
             ei[sigma == 0.0] = 0.0
         return ei, mu, sigma
 
-    def propose_location(self, plot=False):
+    def propose_location(self, plot='ei'):
+        """Propose a location for the next sample based on expected improvement matrix"""
         dim = self.xy_samples.shape[1]
         ei_matrix = np.zeros([self.bounds[0, 1], self.bounds[1, 1]])
         mu_matrix = np.zeros([self.bounds[0, 1], self.bounds[1, 1]])
@@ -99,6 +101,7 @@ class BayesianOptimization:
         return self.convergence
 
     def plots(self, plot, ei_matrix, mu_matrix, sigma_matrix):
+        """Plot expected improvement, mean and covariance for each new sample"""
         if plot == 'ei' or plot == 'expected_improvement' or plot == 'all':
             plt.imshow(ei_matrix)
             plt.title('Expected improvement over the area')
