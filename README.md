@@ -1,4 +1,4 @@
-"# heat_flow_optimization-" 
+# heat_flow_optimization
 
 Download repository:
 Go to folder you want the repository in
