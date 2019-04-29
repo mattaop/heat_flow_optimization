@@ -6,13 +6,15 @@ from scipy.stats import norm
 
 
 class BayesianOptimization:
+    """Class that contains methods for the Bayesian optimization"""
     def __init__(self, parameters):
         self.xy_samples = np.empty((0, 2), int)
         self.t_samples = np.empty((0, 0), int)
         self.dim = self.xy_samples.shape
         self.bounds = np.array([[0, parameters['simulation']['Nx']-1], [0, parameters['simulation']['Ny']-1]])
-        self.threshold = 10**(-2)
+        self.threshold = 10**(-3)
         self.ei = 1
+        self.noise = 10**(-5)
 
         self.convergence = False
 
@@ -33,7 +35,7 @@ class BayesianOptimization:
         and the prior kernel function.
         """
         # Kernel of the observations
-        sigma_11 = self._exponentiated_quadratic(x1, x1)+0.1*np.eye(len(x1))
+        sigma_11 = self._exponentiated_quadratic(x1, x1)+self.noise*np.eye(len(x1))
         # Kernel of observations vs to-predict
         sigma_12 = self._exponentiated_quadratic(x, x1)
         # Solve
