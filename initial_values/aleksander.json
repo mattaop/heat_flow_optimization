@@ -1,13 +1,13 @@
 { "simulation":
   {
-    "xlen": 4,
-    "ylen": 4,
-    "Nx": 50,
+    "xlen": 5,
+    "ylen": 5,
+    "Nx": 20,
     "Ny": 50,
-    "initial_temperature": 300,
+    "initial_temperature": 295,
     "heater_temperature": 303,
-    "outside_temperature": 297,
-    "temperature_goal": 301
+    "outside_temperature": 295,
+    "temperature_goal": 298
   },
   "optimization":
   {
