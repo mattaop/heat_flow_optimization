@@ -23,7 +23,7 @@ class GridModel2D_DD:
     temperature_matrix = []  # matrix containing the temperature at each grid point. [x,y] convection is used.
     temperature_matrix_previous_time = []  # help matrix to contain the previous temperature values
     time = 0  # value that keeps track of the time used in the simulation
-    max_time = 100000  # max limit of the time used to heat a room to temperature goal
+    max_time = 1000000  # max limit of the time used to heat a room to temperature goal
     # velocity and change in velocity fields matrices
     v_x = []
     v_y = []

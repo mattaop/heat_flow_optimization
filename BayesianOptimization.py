@@ -22,7 +22,7 @@ class BayesianOptimization:
         self.best_xy = [0, 0]
         self.best_t = np.inf
 
-    def _exponentiated_quadratic(self, xa, xb, scale=1/400):
+    def _exponentiated_quadratic(self, xa, xb, scale=1/100):
         """Exponentiated quadratic  with σ=1"""
         # L2 distance (Squared Euclidian)
         sq_norm = - scale * cdist(xa, xb, 'sqeuclidean')

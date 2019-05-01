@@ -73,6 +73,6 @@ class GradientDescent:
             start_time = time.time()
             #self.room.simulate(positions[np.argmin(times)])
             number_of_evals += 1
-            simulation_time += time.time() - start_time()
+            simulation_time += time.time() - start_time
             #self.room.plot_temperature_room()
         return positions[np.argmin(times)], number_of_evals, optimization_time, simulation_time
