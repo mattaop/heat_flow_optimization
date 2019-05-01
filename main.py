@@ -75,8 +75,8 @@ def start_optimization(algorithm, input_file, model):
         return optimizer.optimize(1)
 
 if __name__ == '__main__':
-    number_of_trials = 1
-    
+    number_of_trials = 2
+
     print("Running Bayesian optimization", number_of_trials, "time(s)")
     number_of_iterations = np.zeros([number_of_trials])
     time_per_iteration = np.zeros([number_of_trials])
@@ -111,3 +111,4 @@ if __name__ == '__main__':
     print('Average number of iterations over ', number_of_trials, ' trials: ', np.mean(steps))
     print('Average time over ', number_of_trials, 'trials: ', np.mean(times), 's , with optimization: ',
           np.mean(opt_times), ' s, and simulation: ', np.mean(sim_times), ' s.')
+    print('Optimal positions:', positions)
