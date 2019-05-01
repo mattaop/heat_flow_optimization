@@ -59,7 +59,7 @@ class GradientDescent:
                     simulation_time += time.time() - start_time
                     start_time = time.time()
                     number_of_evals += 1
-                    print('Time to heat for neighbour is:', T[neighbour])
+                    print('Time to heat for', neighbour, 'is', T[neighbour])
                     if T[neighbour] < T[best_neighbour]:
                         improvement_found = True
                         best_neighbour = neighbour
