@@ -186,9 +186,9 @@ class GridModel2D_DD:
 
 
 # Example code which can be used to simulate the temperature in a room for a given json file and heater placement
-# parametersAleks = json.load(open("initial_values/aleksander.json", "r"))
+# parameters = json.load(open("initial_values/quadratic.json", "r"))
 # heater_place = [10, 15]
-# square_room = GridModel2D_DD(parametersAleks)
+# square_room = GridModel2D_DD(parameters)
 # square_room.simulate(heater_place, velocity_field='directional')
 # #square_room.simulate(heater_place)
 # square_room.plot_temperature_room()

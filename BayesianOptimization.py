@@ -14,7 +14,7 @@ class BayesianOptimization:
         self.bounds = np.array([[0, parameters['simulation']['Nx']-1], [0, parameters['simulation']['Ny']-1]])
         self.threshold = 10**(-5)
         self.ei = 1
-        self.noise = 10**(-5)
+        self.noise = 10**(-7)
 
         self.convergence = False
 
