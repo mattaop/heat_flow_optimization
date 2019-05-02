@@ -1,9 +1,7 @@
 import BayesianOptimization as BO
 import heat_eqn_2d as HE
 import drift_diffusion_2d as DD
-import test
 import numpy as np
-import random
 import time
 import json
 import GradientDescent as GD
@@ -18,7 +16,6 @@ def load_initial_values(input_file):
     :param input_file: Path to json file
     :return: Dict containing data from input_file
     """
-
     data = json.load(open(input_file, "r"))
     return data
 
@@ -28,15 +25,22 @@ def scale_time(time):
 
 
 def start_optimization(algorithm, input_file, model):
+    """
+    Run the optimization algorithm specified.
+    :param algorithm: Algorithm to be used for optimization ('GD' or 'BO')
+    :param input_file: path to .json file with input data
+    :param model: Heat model for simulations ('DD' or 'HE')
+    :return: Optimal position, runtime for optimization and for simulation depending on algorithm
+    """
     parameters = load_initial_values(input_file)
     if model == 'HE':
         square_room = HE.GridModel2D(parameters)
     if model == 'DD':
         square_room = DD.GridModel2D_DD(parameters)
 
+    # Bayesian optimization
     if algorithm == 'BO':
         optimizing_algorithm = BO.BayesianOptimization(parameters)
-        test_function = test.TestFunction()
         optimization_time = 0
         simulation_time = 0
 
@@ -70,12 +74,13 @@ def start_optimization(algorithm, input_file, model):
             print(optimizing_algorithm.best_xy)
         return len(optimizing_algorithm.t_samples+1), optimization_time, simulation_time
 
+    # Gradient descent-based optimization
     if algorithm == 'GD':
-        optimizer = GD.GradientDescent(parameters)
-        return optimizer.optimize(1)
+        optimizer = GD.GradientDescent(parameters, model)
+        return optimizer.optimize(k = 1)
 
 if __name__ == '__main__':
-    number_of_trials = 2
+    number_of_trials = 5 # How many times to run each optimization algorithm
 
     print("Running Bayesian optimization", number_of_trials, "time(s)")
     number_of_iterations = np.zeros([number_of_trials])
@@ -83,8 +88,9 @@ if __name__ == '__main__':
     optimization_time = np.zeros([number_of_trials])
     simulation_time = np.zeros([number_of_trials])
     for i in range(number_of_trials):
+        print('Run ', i)
         start_time = time.time()
-        number_of_iterations[i], optimization_time[i], simulation_time[i] = start_optimization('BO','initial_values/aleksander.json', 'DD' )
+        number_of_iterations[i], optimization_time[i], simulation_time[i] = start_optimization('BO','initial_values/rectangular.json', 'DD' )
         time_per_iteration[i] = time.time()-start_time
     print('Average number of iterations over ', number_of_trials, ' trials: ', number_of_iterations.mean())
     print('Average time over ', number_of_trials, 'trials: ', time_per_iteration.mean(), 's , with optimization: ',
@@ -99,10 +105,9 @@ if __name__ == '__main__':
     start_time = time.time()
     for i in range(number_of_trials):
         start_time = time.time()
-        # print('Optimal position and steps ', start_optimization('GD',"initial_values/mathias.json"))
         print('Run ', i)
         pos, number_steps, optimization_time, simulation_time = start_optimization('GD',
-                                                                                   'initial_values/aleksander.json', 'DD')
+                                                                                   'initial_values/rectangular.json', 'DD')
         positions.append(pos)
         steps.append(number_steps)
         times.append(time.time() - start_time)

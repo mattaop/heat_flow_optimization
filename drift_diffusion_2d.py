@@ -83,7 +83,8 @@ class GridModel2D_DD:
     def simulate(self, heater_placement='Random', velocity_field = 'uniform'):
         """
         For a given heater_placement, uses FTCS to update the temperature at each time step until stopping criterion
-        :param heater_placement: [x,y] array with the heater position, if not provided a random position is used
+        :param heater_placement: [x,y] array with the heater position, if not provided a random position is used.
+        :param velocity_field: string to select which velocity field to use. Default is uniform.
         :return: time used in the simulation
         """
         if heater_placement == 'Random':

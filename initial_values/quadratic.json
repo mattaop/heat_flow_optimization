@@ -1,0 +1,17 @@
+{ "simulation":
+  {
+    "xlen": 5,
+    "ylen": 5,
+    "Nx": 50,
+    "Ny": 50,
+    "initial_temperature": 295,
+    "heater_temperature": 303,
+    "outside_temperature": 295,
+    "temperature_goal": 295
+  },
+  "optimization":
+  {
+    "xy_samples": null,
+    "t_samples": null
+  }
+}
