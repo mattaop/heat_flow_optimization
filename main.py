@@ -66,7 +66,8 @@ def start_optimization(algorithm, input_file, model):
             simulation_time += time.time()-start_time
             start_time = time.time()
             optimizing_algorithm.update_samples(square_room.heater_placement, scale_time(time_at_placement))
-            print(optimizing_algorithm.best_xy)
+            print('Best position so far at iteration', len(optimizing_algorithm.t_samples), ': ',
+                  optimizing_algorithm.best_xy)
         return len(optimizing_algorithm.t_samples+1), optimization_time, simulation_time
 
     # Gradient descent-based optimization

@@ -12,7 +12,7 @@ class BayesianOptimization:
         self.t_samples = np.empty((0, 0), int)
         self.dim = self.xy_samples.shape
         self.bounds = np.array([[0, parameters['simulation']['Nx']-1], [0, parameters['simulation']['Ny']-1]])
-        self.threshold = 10**(-3)
+        self.threshold = 10**(-5)
         self.ei = 1
         self.noise = 10**(-5)
 
