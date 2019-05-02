@@ -7,7 +7,7 @@
     "initial_temperature": 295,
     "heater_temperature": 303,
     "outside_temperature": 295,
-    "temperature_goal": 295
+    "temperature_goal": 298
   },
   "optimization":
   {
