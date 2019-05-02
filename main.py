@@ -18,6 +18,7 @@ def load_initial_values(input_file):
 
 
 def scale_time(time):
+    """Log'ing the time, and changing sign, since we ar minimizing."""
     return -np.log(time)
 
 
@@ -77,8 +78,9 @@ def start_optimization(algorithm, input_file, model):
         return optimizer.optimize(k=1)
 
 
-if __name__ == '__main__':
-    number_of_trials = 1  # How many times to run each optimization algorithm
+def main():
+    """Run both the Bayesian optimization and the gradient descent based optimization"""
+    number_of_trials = 5  # How many times to run each optimization algorithm
 
     print("Running Bayesian optimization", number_of_trials, "time(s)")
     number_of_iterations = np.zeros([number_of_trials])
@@ -88,7 +90,8 @@ if __name__ == '__main__':
     for i in range(number_of_trials):
         print('Run ', i)
         start_time = time.time()
-        number_of_iterations[i], optimization_time[i], simulation_time[i] = start_optimization('BO','initial_values/rectangular.json', 'DD' )
+        number_of_iterations[i], optimization_time[i], simulation_time[i] = start_optimization('BO',
+                                                                                               'initial_values/rectangular.json', 'DD' )
         time_per_iteration[i] = time.time()-start_time
     print('Average number of iterations over ', number_of_trials, ' trials: ', number_of_iterations.mean())
     print('Average time over ', number_of_trials, 'trials: ', time_per_iteration.mean(), 's , with optimization: ',
@@ -100,7 +103,6 @@ if __name__ == '__main__':
     times = []
     opt_times = []
     sim_times = []
-    start_time = time.time()
     for i in range(number_of_trials):
         start_time = time.time()
         print('Run ', i)
@@ -115,3 +117,7 @@ if __name__ == '__main__':
     print('Average time over ', number_of_trials, 'trials: ', np.mean(times), 's , with optimization: ',
           np.mean(opt_times), ' s, and simulation: ', np.mean(sim_times), ' s.')
     print('Optimal positions:', positions)
+
+
+if __name__ == '__main__':
+    main()
