@@ -23,7 +23,7 @@ class GridModel2D_DD:
     temperature_matrix = []  # matrix containing the temperature at each grid point. [x,y] convection is used.
     temperature_matrix_previous_time = []  # help matrix to contain the previous temperature values
     time = 0  # value that keeps track of the time used in the simulation
-    max_time = 500000  # max limit of the time used to heat a room to temperature goal
+    max_time = 1000000  # max limit of the time used to heat a room to temperature goal
     # velocity and change in velocity fields matrices
     v_x = []
     v_y = []
@@ -44,7 +44,7 @@ class GridModel2D_DD:
         self.heater_temperature = parameters['simulation']['heater_temperature']
         self.temperature_goal = parameters['simulation']['temperature_goal']
         self.dx, self.dy = self.length/(self.Nx-1), self.width/(self.Ny-1)
-        self.dt = min(self.dx**2*self.dy**2/(2*self.thermal_diffusivity*(self.dx**2+self.dy**2)), 10)  # set dt to the minimum of 10 and max_dt to ensure stability
+        self.dt = min(self.dx**2*self.dy**2/(2*self.thermal_diffusivity*(self.dx**2+self.dy**2)), 1)  # set dt to the minimum of 10 and max_dt to ensure stability
         self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
         self.temperature_matrix_previous_time[self.heater_placement] = self.heater_temperature
         self.temperature_matrix = np.zeros_like(self.temperature_matrix_previous_time)
@@ -73,13 +73,14 @@ class GridModel2D_DD:
         print("avg_temp in room: ", np.mean(self.temperature_matrix))
         print("Time: ", self.time)
         plt.imshow(self.temperature_matrix, cmap=plt.get_cmap('hot'), vmin=min(self.initial_temperature, self.temperature_outside), vmax=self.heater_temperature)
-        plt.colorbar()
+        cbar = plt.colorbar()
+        cbar.set_label('Temperature [K]')
         plt.xlabel('y')
         plt.ylabel('x')
         plt.title('Simulated temperature from heater placement: {}'.format(self.heater_placement))
         plt.show()
 
-    def simulate(self, heater_placement='Random'):
+    def simulate(self, heater_placement='Random', velocity_field = 'uniform'):
         """
         For a given heater_placement, uses FTCS to update the temperature at each time step until stopping criterion
         :param heater_placement: [x,y] array with the heater position, if not provided a random position is used
@@ -91,13 +92,25 @@ class GridModel2D_DD:
             self.heater_placement = (heater_placement[0], heater_placement[1])
 
         self.time = 0  # reinitialize the time used in the simulation to be able to use object multiple times
-        self.v_x, self.v_y = self.create_velocity_field()  # create velocity field
-        self.v_x /= 1000  # scale values to avoid unphysical results
-        self.v_y /= 1000  # scale values to avoid unphysical results
+        if velocity_field == 'uniform':
+            self.v_x, self.v_y = self.uniform_velocity_field()  # create velocity field
+            self.v_x /= 1000  # scale values to avoid unphysical results
+            self.v_y /= 1000  # scale values to avoid unphysical results
 
-        self.a_x, self.a_y = self.create_change_in_velocity_field()  # create change in velocity field
-        self.a_x /= 1000  # scale values to avoid unphysical results
-        self.a_y /= 1000  # scale values to avoid unphysical results
+            self.a_x, self.a_y = self.change_in_uniform_velocity_field()  # create change in velocity field
+            self.a_x /= 1000  # scale values to avoid unphysical results
+            self.a_y /= 1000  # scale values to avoid unphysical results
+        elif velocity_field == 'directional':
+            self.v_x, self.v_y = self.directional_velocity_field()  # create velocity field
+            self.v_x /= 100  # scale values to avoid unphysical results
+            self.v_y /= 100  # scale values to avoid unphysical results
+
+            self.a_x, self.a_y = self.change_in_directional_velocity_field()  # create change in velocity field
+            self.a_x /= 100  # scale values to avoid unphysical results
+            self.a_y /= 100  # scale values to avoid unphysical results
+        else:
+            print('Need to choose uniform or directional velocity field!')
+            exit()
 
         # reinitialization of the matrices containing the temperature to be able to use object multiple times
         self.temperature_matrix_previous_time = np.ones((self.Nx, self.Ny))*self.initial_temperature
@@ -110,7 +123,7 @@ class GridModel2D_DD:
         #print(self.time)
         return self.time
 
-    def create_velocity_field(self):
+    def uniform_velocity_field(self):
         """
         Creates a velocity field to simulate a fan in all directions away from the heater.
         :return: matrices containing the velocity in all grid points in the x- and y-direction.
@@ -124,7 +137,7 @@ class GridModel2D_DD:
                     v_x[i, j], v_y[i, j] = (i - x_H) / ((i - x_H) ** 2 + (j - y_H) ** 2), (j - y_H) / ((i - x_H) ** 2 + (j - y_H) ** 2)
         return v_x, v_y
 
-    def create_change_in_velocity_field(self):
+    def change_in_uniform_velocity_field(self):
         """
         Creates a field containing the change in velocity for all directions away from the heater.
         :return: matrices containing the change in velocity in all grid points in the x- and y-direction.
@@ -138,10 +151,43 @@ class GridModel2D_DD:
                     a_x[i, j], a_y[i, j] = ((j-y_H)**2-(i - x_H)**2) / ((i - x_H) ** 2 + (j - y_H) ** 2)**2, ((i-x_H)**2-(j - y_H)**2) / ((i - x_H) ** 2 + (j - y_H) ** 2)**2
         return a_x, a_y
 
+    def directional_velocity_field(self):
+        """
+        Creates a velocity field to simulate a fan to the right away from the heater.
+        :return: matrices containing the velocity in all grid points in the x- and y-direction.
+        """
+        v_x = np.zeros((self.Nx, self.Ny))
+        v_y = np.zeros_like(v_x)
+        x_H, y_H = self.heater_placement[0], self.heater_placement[1]
+        for i in range(self.Nx):
+            for j in range(self.Ny):
+                if (i, j) != (x_H, y_H):
+                    v_x[i, j], v_y[i, j] = (i - x_H)*1.0 / ((i - x_H) ** 2 + (j - y_H)**2), 1.0*(j-y_H) / ((i - x_H) ** 2 + (j - y_H)**2)
+        v_x[:, :y_H+1] = 0
+        v_y[:, :y_H+1] = 0
+        return v_x, v_y
+
+    def change_in_directional_velocity_field(self):
+        """
+        Creates a field containing the change in velocity for all directions away from the heater.
+        :return: matrices containing the change in velocity in all grid points in the x- and y-direction.
+        """
+        a_x = np.zeros((self.Nx, self.Ny))
+        a_y = np.zeros_like(a_x)
+        x_H, y_H = self.heater_placement[0], self.heater_placement[1]
+        for i in range(self.Nx):
+            for j in range(self.Ny):
+                if (i, j) != (x_H, y_H):
+                    a_x[i, j], a_y[i, j] = 1.0*((j-y_H)**2-(i - x_H)**2) / ((i - x_H) ** 2 + (j - y_H) ** 2)**2, 1.0*((i-x_H)**2-(j - y_H)**2) / ((i - x_H) ** 2 + (j - y_H) ** 2)**2
+        a_x[:, :y_H+1] = 0
+        a_y[:, :y_H+1] = 0
+        return a_x, a_y
+
 
 # Example code which can be used to simulate the temperature in a room for a given json file and heater placement
 # parametersAleks = json.load(open("initial_values/aleksander.json", "r"))
-# heater_place = [12, 24]
+# heater_place = [10, 15]
 # square_room = GridModel2D_DD(parametersAleks)
-# square_room.simulate(heater_place)
+# square_room.simulate(heater_place, velocity_field='directional')
+# #square_room.simulate(heater_place)
 # square_room.plot_temperature_room()
