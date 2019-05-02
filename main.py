@@ -1,8 +1,8 @@
-from Simulation import drift_diffusion_2d as DD, heat_eqn_2d as HE
+from simulation import drift_diffusion_2d as DD, heat_eqn_2d as HE
 import numpy as np
 import time
 import json
-from Optimization_alogrithms import GradientDescent as GD, BayesianOptimization as BO
+from optimization_alogrithms import GradientDescent as GD, BayesianOptimization as BO
 
 print("Project in modelling and optimization of heat flow")
 

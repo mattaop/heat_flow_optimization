@@ -1,6 +1,6 @@
 import numpy as np
-from Simulation import drift_diffusion_2d as DD
-from Simulation import heat_eqn_2d as HE
+from simulation import drift_diffusion_2d as DD
+from simulation import heat_eqn_2d as HE
 import time
 
 
