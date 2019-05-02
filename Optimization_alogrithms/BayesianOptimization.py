@@ -12,9 +12,9 @@ class BayesianOptimization:
         self.t_samples = np.empty((0, 0), int)
         self.dim = self.xy_samples.shape
         self.bounds = np.array([[0, parameters['simulation']['Nx']-1], [0, parameters['simulation']['Ny']-1]])
-        self.threshold = 10**(-5)
+        self.threshold = 10**(-3)
         self.ei = 1
-        self.noise = 10**(-7)
+        self.noise = 10**(-5)
 
         self.convergence = False
 
@@ -22,7 +22,7 @@ class BayesianOptimization:
         self.best_xy = [0, 0]
         self.best_t = np.inf
 
-    def _exponentiated_quadratic(self, xa, xb, scale=1/100):
+    def _exponentiated_quadratic(self, xa, xb, scale=1/200):
         """Exponentiated quadratic  with σ=1"""
         # L2 distance (Squared Euclidian)
         sq_norm = - scale * cdist(xa, xb, 'sqeuclidean')

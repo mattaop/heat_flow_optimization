@@ -1,6 +1,6 @@
 import numpy as np
-import heat_eqn_2d as HE
-import drift_diffusion_2d as DD
+from Simulation import drift_diffusion_2d as DD
+from Simulation import heat_eqn_2d as HE
 import time
 
 
@@ -45,7 +45,7 @@ class GradientDescent:
             position = (np.random.randint(0, self.grid_length), np.random.randint(0, self.grid_width))
             print('Start position generated to: ', position)
             T = np.zeros((self.grid_length, self.grid_width))
-            T[position] = self.room.simulate(heater_placement = position, velocity_field = 'directional')
+            T[position] = self.room.simulate(heater_placement=position, velocity_field='directional')
             visited[position[0]][position[1]] = 1
             simulation_time += time.time()-start_time
             start_time = time.time()
@@ -63,7 +63,7 @@ class GradientDescent:
                 for neighbour in neighbours:
                     if visited[neighbour[0]][neighbour[1]] == 1:
                         continue
-                    T[neighbour] = self.room.simulate(heater_placement = neighbour, velocity_field = 'directional')
+                    T[neighbour] = self.room.simulate(heater_placement=neighbour, velocity_field='directional')
                     visited[neighbour[0]][neighbour[1]] = 1
                     simulation_time += time.time() - start_time
                     start_time = time.time()

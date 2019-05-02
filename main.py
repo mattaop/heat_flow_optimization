@@ -1,11 +1,8 @@
-import BayesianOptimization as BO
-import heat_eqn_2d as HE
-import drift_diffusion_2d as DD
+from Simulation import drift_diffusion_2d as DD, heat_eqn_2d as HE
 import numpy as np
 import time
 import json
-import GradientDescent as GD
-
+from Optimization_alogrithms import GradientDescent as GD, BayesianOptimization as BO
 
 print("Project in modelling and optimization of heat flow")
 
@@ -77,10 +74,11 @@ def start_optimization(algorithm, input_file, model):
     # Gradient descent-based optimization
     if algorithm == 'GD':
         optimizer = GD.GradientDescent(parameters, model)
-        return optimizer.optimize(k = 1)
+        return optimizer.optimize(k=1)
+
 
 if __name__ == '__main__':
-    number_of_trials = 5 # How many times to run each optimization algorithm
+    number_of_trials = 1  # How many times to run each optimization algorithm
 
     print("Running Bayesian optimization", number_of_trials, "time(s)")
     number_of_iterations = np.zeros([number_of_trials])
