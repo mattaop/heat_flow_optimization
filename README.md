@@ -17,26 +17,9 @@ Install requirements:
 > pip install -r requirements.txt
 ```
 
-### Upload code:
-Add files:
+### Run code:
+To run the main module:
 ```bash
-> git add -A # To upload ALL files
-> git add <fileName> # To upload chosen file. (git add <folderName>/ adds entire folder)
-> git status # Shows files edited and files added to commit
+> python main.py
 ```
-Commit your changes:
-```bash
-> git commit -m "Message to describe commit"
-```
-Update to head:
-```bash
-> git pull origin master 
-```
-Resolve conflicts in the code files and push your code:
-```bash
-> git push origin master
-```
-Reset your local repository to last pull:
-```bash
-> git reset --hard
-```
+This will run the Bayesian n number of times, speficied in the code, as well as the gradient descent-based algorithm n times.
