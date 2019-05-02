@@ -14,7 +14,7 @@ class BayesianOptimization:
         self.bounds = np.array([[0, parameters['simulation']['Nx']-1], [0, parameters['simulation']['Ny']-1]])
         self.threshold = 10**(-5)
         self.ei = 1
-        self.noise = 10**(-5)
+        self.noise = 10**(-10)
 
         self.convergence = False
 
@@ -22,7 +22,7 @@ class BayesianOptimization:
         self.best_xy = [0, 0]
         self.best_t = np.inf
 
-    def _exponentiated_quadratic(self, xa, xb, scale=1/200):
+    def _exponentiated_quadratic(self, xa, xb, scale=1/400):
         """
         Exponentiated quadratic  with σ=1
         """
